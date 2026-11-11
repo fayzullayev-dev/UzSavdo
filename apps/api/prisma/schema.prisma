@@ -1,0 +1,371 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                       String    @id @default(uuid())
+  companyName              String
+  firstName                String
+  lastName                 String
+  phone                    String    @unique
+  email                    String?   @unique
+  login                    String    @unique
+  passwordHash             String?
+  googleId                 String?   @unique
+  telegram                 String?
+  regionId                 String
+  districtId               String
+  address                  String?
+  logoUrl                  String?
+  role                     String    @default("USER") // USER, MODERATOR, ADMIN
+  locale                   String    @default("uz")   // uz, ru
+  isBlocked                Boolean   @default(false)
+  blockReason              String?
+  agreementVersionAccepted String?
+  agreementAcceptedAt      DateTime?
+  ordersAnsweredOnTime     Int       @default(0)
+  ordersIgnored            Int       @default(0)
+  ratingAvg                Float     @default(5.0)
+  ratingCount              Int       @default(0)
+  mustChangePassword       Boolean   @default(false)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  deletedAt                DateTime?
+
+  sessions                 Session[]
+  listings                 Listing[]
+  buyerContracts           Contract[] @relation("BuyerContracts")
+  sellerContracts          Contract[] @relation("SellerContracts")
+  buyerOrders              Order[]    @relation("BuyerOrders")
+  sellerOrders             Order[]    @relation("SellerOrders")
+  favorites                Favorite[]
+  buyerConversations       Conversation[] @relation("BuyerConversations")
+  sellerConversations      Conversation[] @relation("SellerConversations")
+  messagesSent             Message[]
+  notifications            Notification[]
+  sellerReviews            Review[]   @relation("SellerReviews")
+  buyerReviews             Review[]   @relation("BuyerReviews")
+  complaintsFiled          Complaint[] @relation("ComplaintsFiled")
+  supportTickets           SupportTicket[]
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  userId           String
+  refreshTokenHash String
+  userAgent        String?
+  ip               String?
+  rememberMe       Boolean  @default(false)
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Region {
+  id        String     @id @default(uuid())
+  nameUz    String
+  nameRu    String
+  type      String     // REPUBLIC, VILOYAT, CITY
+  sortOrder Int        @default(0)
+  isActive  Boolean    @default(true)
+  districts District[]
+  listings  Listing[]
+}
+
+model District {
+  id        String    @id @default(uuid())
+  regionId  String
+  nameUz    String
+  nameRu    String
+  type      String    // CITY, DISTRICT
+  sortOrder Int       @default(0)
+  isActive  Boolean   @default(true)
+  region    Region    @relation(fields: [regionId], references: [id], onDelete: Cascade)
+  listings  Listing[]
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  nameUz    String
+  nameRu    String
+  icon      String
+  sortOrder Int       @default(0)
+  isActive  Boolean   @default(true)
+  products  Product[]
+  listings  Listing[]
+}
+
+model Product {
+  id             String    @id @default(uuid())
+  categoryId     String
+  nameUz         String
+  nameRu         String
+  normalizedName String    @unique
+  isUserAdded    Boolean   @default(false)
+  createdById    String?
+  isApproved     Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+
+  category       Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  listings       Listing[]
+}
+
+model Listing {
+  id                  String         @id @default(uuid())
+  sellerId            String
+  categoryId          String
+  productId           String
+  title               String
+  titleRu             String?
+  description         String?
+  descriptionRu       String?
+  unit                String         // kg, tonna, dona, litr, qop, quti
+  pricePerUnit        Decimal
+  isNegotiable        Boolean        @default(false)
+  totalQuantity       Decimal
+  availableQuantity   Decimal
+  origin              String         // LOCAL, IMPORT
+  delivery            String         // PICKUP, DELIVERY
+  expiryOrHarvestDate String?
+  regionId            String
+  districtId          String
+  address             String?
+  certificateUrl      String?
+  showPhone           Boolean        @default(true)
+  status              String         @default("ACTIVE") // ACTIVE, SOLD, ARCHIVED, EXPIRED, BLOCKED
+  blockReason         String?
+  viewsCount          Int            @default(0)
+  publishedAt         DateTime       @default(now())
+  expiresAt           DateTime
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  deletedAt           DateTime?
+
+  seller              User           @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  category            Category       @relation(fields: [categoryId], references: [id])
+  product             Product        @relation(fields: [productId], references: [id])
+  region              Region         @relation(fields: [regionId], references: [id])
+  district            District       @relation(fields: [districtId], references: [id])
+  images              ListingImage[]
+  contracts           Contract[]
+  orders              Order[]
+  sales               Sale[]
+  favorites           Favorite[]
+}
+
+model ListingImage {
+  id        String   @id @default(uuid())
+  listingId String
+  url       String
+  thumbUrl  String?
+  sortOrder Int      @default(0)
+  sizeBytes Int?
+
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+
+model Contract {
+  id             String    @id @default(uuid())
+  number         String    @unique // SH-YYYY-000001
+  listingId      String
+  buyerId        String
+  sellerId       String
+  quantity       Decimal
+  unit           String
+  pricePerUnit   Decimal
+  estimatedTotal Decimal
+  fee            Decimal   @default(0)
+  isTrial        Boolean   @default(true)
+  status         String    @default("PAID") // PENDING, PAID, CANCELLED
+  paidAt         DateTime? @default(now())
+  pdfUrl         String?
+  createdAt      DateTime  @default(now())
+
+  listing        Listing   @relation(fields: [listingId], references: [id])
+  buyer          User      @relation("BuyerContracts", fields: [buyerId], references: [id])
+  seller         User      @relation("SellerContracts", fields: [sellerId], references: [id])
+  order          Order?
+  payment        Payment?
+  conversation   Conversation?
+}
+
+model Payment {
+  id         String   @id @default(uuid())
+  contractId String   @unique
+  provider   String   // CLICK, PAYME
+  mode       String   // MOCK, LIVE
+  amount     Decimal
+  status     String   // PENDING, COMPLETED, FAILED, CANCELLED
+  externalId String?
+  rawPayload String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id           String    @id @default(uuid())
+  contractId   String    @unique
+  listingId    String
+  buyerId      String
+  sellerId     String
+  quantity     Decimal
+  status       String    @default("PENDING") // PENDING, ACCEPTED, REJECTED, EXPIRED, COMPLETED, OUT_OF_STOCK
+  rejectReason String?
+  expiresAt    DateTime
+  acceptedAt   DateTime?
+  rejectedAt   DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  contract     Contract  @relation(fields: [contractId], references: [id])
+  listing      Listing   @relation(fields: [listingId], references: [id])
+  buyer        User      @relation("BuyerOrders", fields: [buyerId], references: [id])
+  seller       User      @relation("SellerOrders", fields: [sellerId], references: [id])
+  sales        Sale[]
+  review       Review?
+}
+
+model Sale {
+  id           String   @id @default(uuid())
+  listingId    String
+  orderId      String?
+  quantity     Decimal
+  isOffPlatform Boolean @default(false)
+  createdAt    DateTime @default(now())
+
+  listing      Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  order        Order?   @relation(fields: [orderId], references: [id])
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  orderId     String   @unique
+  sellerId    String
+  buyerId     String
+  rating      Int
+  text        String
+  sellerReply String?
+  isHidden    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  order       Order    @relation(fields: [orderId], references: [id])
+  seller      User     @relation("SellerReviews", fields: [sellerId], references: [id])
+  buyer       User     @relation("BuyerReviews", fields: [buyerId], references: [id])
+}
+
+model Favorite {
+  userId    String
+  listingId String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@id([userId, listingId])
+}
+
+model Conversation {
+  id            String    @id @default(uuid())
+  contractId    String    @unique
+  buyerId       String
+  sellerId      String
+  lastMessageAt DateTime  @default(now())
+
+  contract      Contract  @relation(fields: [contractId], references: [id])
+  buyer         User      @relation("BuyerConversations", fields: [buyerId], references: [id])
+  seller        User      @relation("SellerConversations", fields: [sellerId], references: [id])
+  messages      Message[]
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  senderId       String
+  text           String
+  imageUrl       String?
+  readAt         DateTime?
+  createdAt      DateTime     @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  payload   String   // JSON string of translation keys & params
+  link      String?
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Complaint {
+  id           String   @id @default(uuid())
+  reporterId   String
+  listingId    String?
+  targetUserId String?
+  reason       String
+  comment      String
+  status       String   @default("PENDING") // PENDING, IN_REVIEW, RESOLVED, DISMISSED
+  createdAt    DateTime @default(now())
+
+  reporter     User     @relation("ComplaintsFiled", fields: [reporterId], references: [id])
+}
+
+model SupportTicket {
+  id         String   @id @default(uuid())
+  userId     String
+  subject    String
+  message    String
+  imageUrl   String?
+  status     String   @default("OPEN") // OPEN, ANSWERED, CLOSED
+  adminReply String?
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Setting {
+  key         String   @id
+  value       String   // JSON
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+}
+
+model AgreementVersion {
+  id          String   @id @default(uuid())
+  version     String   @unique
+  textUz      String
+  textRu      String
+  publishedAt DateTime @default(now())
+}
+
+model ContractTemplate {
+  id          String   @id @default(uuid())
+  version     String   @unique
+  textUz      String
+  textRu      String
+  publishedAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actorId   String
+  action    String
+  entity    String
+  entityId  String
+  before    String?  // JSON
+  after     String?  // JSON
+  createdAt DateTime @default(now())
+}

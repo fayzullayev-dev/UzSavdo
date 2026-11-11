@@ -1,0 +1,45 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1F5F4A;
+  --primary-hover: #184C3B;
+  --primary-soft: #E6F0EB;
+  --accent: #E07A3F;
+  --accent-hover: #C9662D;
+  --accent-soft: #FBEADF;
+  --background: #FAF7F2;
+  --surface: #FFFFFF;
+  --surface-muted: #F3EFE7;
+  --border: #E8E2D6;
+  --text: #1E2A26;
+  --text-secondary: #5B6762;
+  --text-muted: #8A948F;
+  --success: #2E9E5B;
+  --warning: #E0A82E;
+  --danger: #D64545;
+  --info: #3A7CA5;
+}
+
+.dark {
+  --primary: #4FB08A;
+  --primary-hover: #5FC29A;
+  --primary-soft: #1E3A30;
+  --accent: #F08A4F;
+  --accent-hover: #F59E69;
+  --background: #121816;
+  --surface: #1A2320;
+  --surface-muted: #222D29;
+  --border: #2E3A35;
+  --text: #ECEFEA;
+  --text-secondary: #A9B3AE;
+  --text-muted: #7C8681;
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
