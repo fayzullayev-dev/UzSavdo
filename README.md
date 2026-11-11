@@ -6,11 +6,11 @@
 
 ## 🌐 Онлайн Демо (Мижозга кўрсатиш учун ҳавола)
 
-* **Веб-платформа (Оммавий ҳавола):** [https://aaron-malpractice-foundation-surgery.trycloudflare.com](https://aaron-malpractice-foundation-surgery.trycloudflare.com)
-* **Эълонлар каталоги:** [https://aaron-malpractice-foundation-surgery.trycloudflare.com/listings](https://aaron-malpractice-foundation-surgery.trycloudflare.com/listings)
-* **Ҳокимият бошқарув панели:** [https://aaron-malpractice-foundation-surgery.trycloudflare.com/admin](https://aaron-malpractice-foundation-surgery.trycloudflare.com/admin)
-* **Рейтинг ва баҳолар тизими:** [https://aaron-malpractice-foundation-surgery.trycloudflare.com/ratings](https://aaron-malpractice-foundation-surgery.trycloudflare.com/ratings)
-* **Кириш ва рўйхатдан ўтиш:** [https://aaron-malpractice-foundation-surgery.trycloudflare.com/auth](https://aaron-malpractice-foundation-surgery.trycloudflare.com/auth)
+* **Веб-платформа (Оммавий ҳавола):** [https://store-initial-burton-acquisitions.trycloudflare.com](https://store-initial-burton-acquisitions.trycloudflare.com)
+* **Эълонлар каталоги:** [https://store-initial-burton-acquisitions.trycloudflare.com/listings](https://store-initial-burton-acquisitions.trycloudflare.com/listings)
+* **Ҳокимият бошқарув панели:** [https://store-initial-burton-acquisitions.trycloudflare.com/admin](https://store-initial-burton-acquisitions.trycloudflare.com/admin)
+* **Рейтинг ва баҳолар тизими:** [https://store-initial-burton-acquisitions.trycloudflare.com/ratings](https://store-initial-burton-acquisitions.trycloudflare.com/ratings)
+* **Кириш ва рўйхатдан ўтиш:** [https://store-initial-burton-acquisitions.trycloudflare.com/auth](https://store-initial-burton-acquisitions.trycloudflare.com/auth)
 
 ---
 
