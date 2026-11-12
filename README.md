@@ -24,10 +24,12 @@
   [https://subaru-induction-jerry-dylan.trycloudflare.com/listings](https://subaru-induction-jerry-dylan.trycloudflare.com/listings)
 * **🏛️ Ҳокимият бошқарув панели (Admin):**  
   [https://subaru-induction-jerry-dylan.trycloudflare.com/admin](https://subaru-induction-jerry-dylan.trycloudflare.com/admin)
+* **📱 Мобил илова юклаб олиш саҳифаси (QR-код билан):**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com/app](https://subaru-induction-jerry-dylan.trycloudflare.com/app)
 * **⭐ Рейтинг ва баҳолар тизими:**  
   [https://subaru-induction-jerry-dylan.trycloudflare.com/ratings](https://subaru-induction-jerry-dylan.trycloudflare.com/ratings)
-* **📱 Мобил илова (Android & iOS):**  
-  `apps/mobile` (Expo SDK 58 + React Native + Expo Router)
+* **🔐 Кириш ва рўйхатдан ўтиш:**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com/auth](https://subaru-induction-jerry-dylan.trycloudflare.com/auth)
 
 ---
 
