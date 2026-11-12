@@ -78,6 +78,7 @@ export default function AdminDashboardPage() {
   const pathname = usePathname();
 
   const [activeMenu, setActiveMenu] = useState<string>("dashboard");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [period, setPeriod] = useState<"today" | "7d" | "30d" | "month" | "year">("30d");
   const [selectedRegion, setSelectedRegion] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -393,35 +394,46 @@ export default function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans text-text antialiased">
       {/* 2.1 Admin Header */}
-      <header className="h-16 bg-surface border-b border-border sticky top-0 z-40 flex items-center justify-between px-4 lg:px-8 shadow-xs">
-        <div className="flex items-center gap-4">
-          <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-btn bg-primary text-white flex items-center justify-center font-bold text-lg shadow-sm">
+      <header className="h-16 bg-surface border-b border-border sticky top-0 z-40 flex items-center justify-between px-3 sm:px-4 lg:px-8 shadow-xs">
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* Mobile Admin Menu Burger */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-btn hover:bg-surface-muted text-text"
+            aria-label="Menyu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Shield className="w-5 h-5 text-primary" />}
+          </button>
+
+          <Link href="/admin" className="flex items-center gap-2">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-btn bg-primary text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-sm">
               UZ
             </div>
-            <span className="font-bold text-xl tracking-tight text-primary">UzSavdo</span>
+            <span className="font-bold text-lg sm:text-xl tracking-tight text-primary">UzSavdo</span>
           </Link>
           <div className="h-5 w-px bg-border hidden sm:block" />
-          <span className="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full border border-primary/20">
+          <span className="bg-primary/10 text-primary text-[11px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full border border-primary/20 truncate max-w-[130px] sm:max-w-none">
             {locale === "uz" ? "Boshqaruv paneli" : "Панель управления"}
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Back to site */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Back to site (visible on BOTH mobile and desktop) */}
           <Link
             href="/"
-            className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-primary px-3 py-2 rounded-btn border border-border hover:bg-surface-muted transition-colors"
+            className="flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-primary px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-btn border border-border hover:bg-surface-muted transition-colors shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
+            <span className="hidden sm:inline">{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
+            <span className="sm:hidden">{locale === "uz" ? "Sayt" : "Сайт"}</span>
           </Link>
 
           {/* Lang toggle */}
           <div className="flex items-center bg-surface-muted p-0.5 rounded-btn border border-border text-xs font-bold">
             <button
               onClick={() => setLocale("uz")}
-              className={`px-2.5 py-1 rounded-btn transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-btn transition-colors cursor-pointer ${
                 locale === "uz" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
               }`}
             >
@@ -429,7 +441,7 @@ export default function AdminDashboardPage() {
             </button>
             <button
               onClick={() => setLocale("ru")}
-              className={`px-2.5 py-1 rounded-btn transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-btn transition-colors cursor-pointer ${
                 locale === "ru" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
               }`}
             >
@@ -438,7 +450,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Admin Avatar */}
-          <div className="flex items-center gap-2 pl-2">
+          <div className="flex items-center gap-2 pl-1 sm:pl-2">
             <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs border border-primary/30">
               A
             </div>
@@ -446,6 +458,65 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Dropdown Panel */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="relative w-[min(86vw,320px)] bg-surface h-full z-50 p-4 flex flex-col shadow-2xl animate-in slide-in-from-left duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
+              <span className="font-bold text-sm text-primary flex items-center gap-2">
+                <Shield className="w-4 h-4" />
+                <span>{locale === "uz" ? "Boʻlimlar" : "Разделы"}</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-text hover:bg-surface-muted"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-1">
+              {adminMenuItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeMenu === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveMenu(item.id);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] text-xs font-semibold transition-all text-left ${
+                      isActive
+                        ? "bg-primary text-white shadow-sm font-bold"
+                        : "text-text-secondary hover:bg-surface-muted hover:text-text"
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-text-muted"}`} />
+                    <span className="truncate">{locale === "uz" ? item.nameUz : item.nameRu}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="pt-3 border-t border-border mt-2">
+              <Link
+                href="/"
+                className="w-full flex items-center gap-2 px-3 py-2.5 rounded-[12px] text-xs font-bold text-text-secondary hover:bg-surface-muted"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex-1 flex w-full relative">
         {/* 2.1 Left Menu - Sticky with independent scroll */}
