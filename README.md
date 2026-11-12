@@ -16,20 +16,20 @@
 
 ---
 
-## 🌐 Онлайн Демо (Мижоз ва Ҳамкорларга Кўрсатиш Учун Ҳаволалар)
+## 🌐 Онлайн Демо (Мижоз ва Ҳамкорларга Кўрсатиш Учун Доимий Ҳаволалар)
 
-* **💻 Веб-платформа (Оммавий ҳавола):**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com](https://subaru-induction-jerry-dylan.trycloudflare.com)
+* **💻 Веб-платформа (Оммавий 24/7 ҳавола):**  
+  [https://uz-savdo.vercel.app](https://uz-savdo.vercel.app)
 * **📦 Эълонлар каталоги:**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com/listings](https://subaru-induction-jerry-dylan.trycloudflare.com/listings)
+  [https://uz-savdo.vercel.app/listings](https://uz-savdo.vercel.app/listings)
 * **🏛️ Ҳокимият бошқарув панели (Admin):**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com/admin](https://subaru-induction-jerry-dylan.trycloudflare.com/admin)
+  [https://uz-savdo.vercel.app/admin](https://uz-savdo.vercel.app/admin)
 * **📱 Мобил илова юклаб олиш саҳифаси (QR-код билан):**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com/app](https://subaru-induction-jerry-dylan.trycloudflare.com/app)
+  [https://uz-savdo.vercel.app/app](https://uz-savdo.vercel.app/app)
 * **⭐ Рейтинг ва баҳолар тизими:**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com/ratings](https://subaru-induction-jerry-dylan.trycloudflare.com/ratings)
+  [https://uz-savdo.vercel.app/ratings](https://uz-savdo.vercel.app/ratings)
 * **🔐 Кириш ва рўйхатдан ўтиш:**  
-  [https://subaru-induction-jerry-dylan.trycloudflare.com/auth](https://subaru-induction-jerry-dylan.trycloudflare.com/auth)
+  [https://uz-savdo.vercel.app/auth](https://uz-savdo.vercel.app/auth)
 
 ---
 
