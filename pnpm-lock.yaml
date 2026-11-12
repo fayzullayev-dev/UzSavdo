@@ -438,9 +438,6 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.6
         version: 1.5.6
-      '@uzsavdo/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
