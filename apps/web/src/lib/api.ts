@@ -144,14 +144,44 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
     ];
   }
 
+  if (cleanEndpoint === "/auth/login") {
+    const body = options.body ? JSON.parse(options.body as string) : {};
+    if (body.login === "admin") {
+      return {
+        user: {
+          id: "admin-id",
+          login: "admin",
+          firstName: "Admin",
+          lastName: "Hokimiyat",
+          companyName: "Toshkent shahar Hokimiyati",
+          phone: "+998 71 200 00 00",
+          role: "ADMIN"
+        }
+      };
+    }
+    return {
+      user: {
+        id: "demo-id",
+        login: "demo",
+        firstName: "Alisher",
+        lastName: "Usmonov",
+        companyName: "Sharq Agro Fayz MCHJ",
+        phone: "+998 90 123 45 67",
+        role: "USER"
+      }
+    };
+  }
+
   if (cleanEndpoint === "/me") {
     return {
-      id: "demo-user-id",
-      login: "demo",
-      companyName: "Sharq Agro Fayz MCHJ",
-      firstName: "Alisher",
-      lastName: "Usmonov",
-      role: "ADMIN"
+      user: {
+        id: "admin-id",
+        login: "admin",
+        companyName: "Toshkent shahar Hokimiyati",
+        firstName: "Admin",
+        lastName: "Hokimiyat",
+        role: "ADMIN"
+      }
     };
   }
 
