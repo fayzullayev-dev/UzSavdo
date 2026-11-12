@@ -58,6 +58,19 @@ import {
 import { toast } from "sonner";
 import { ConfirmDialog, FormDialog } from "../../components/dialogs";
 import { formatCurrency } from "../../lib/localization";
+import { AdminReportsSection } from "./components/AdminReportsSection";
+import { AdminUsersSection } from "./components/AdminUsersSection";
+import { AdminListingsSection } from "./components/AdminListingsSection";
+import { AdminCategoriesSection } from "./components/AdminCategoriesSection";
+import { AdminProductsSection } from "./components/AdminProductsSection";
+import { AdminContractsSection } from "./components/AdminContractsSection";
+import { AdminOrdersSection } from "./components/AdminOrdersSection";
+import { AdminComplaintsSection } from "./components/AdminComplaintsSection";
+import { AdminRatingsSection } from "./components/AdminRatingsSection";
+import { AdminTicketsSection } from "./components/AdminTicketsSection";
+import { AdminRegionsSection } from "./components/AdminRegionsSection";
+import { AdminSettingsSection } from "./components/AdminSettingsSection";
+import { AdminAuditSection } from "./components/AdminAuditSection";
 
 export default function AdminDashboardPage() {
   const { locale, setLocale, t } = useLanguage();
@@ -459,38 +472,54 @@ export default function AdminDashboardPage() {
 
         {/* Main Content Area */}
         <main className="flex-1 p-4 lg:p-8 space-y-6 overflow-x-hidden max-w-[1760px] mx-auto w-full">
-          {/* Header Title */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-extrabold text-text tracking-tight">
-                {locale === "uz" ? "Boshqaruv paneli" : "Панель управления"}
-              </h1>
-              <p className="text-xs text-text-secondary mt-1">
-                {locale === "uz"
-                  ? "Platformadagi savdo faoliyati statistikasi • Yangilandi: Bugun, 19:20"
-                  : "Статистика торговой активности на платформе • Обновлено: Сегодня, 19:20"}
-              </p>
-            </div>
+          {activeMenu === "reports" && <AdminReportsSection locale={locale} />}
+          {activeMenu === "users" && <AdminUsersSection locale={locale} onSelectUser={setSelectedUser} />}
+          {activeMenu === "listings" && <AdminListingsSection locale={locale} />}
+          {activeMenu === "categories" && <AdminCategoriesSection locale={locale} />}
+          {activeMenu === "products" && <AdminProductsSection locale={locale} />}
+          {activeMenu === "contracts" && <AdminContractsSection locale={locale} />}
+          {activeMenu === "orders" && <AdminOrdersSection locale={locale} />}
+          {activeMenu === "complaints" && <AdminComplaintsSection locale={locale} />}
+          {activeMenu === "ratings" && <AdminRatingsSection locale={locale} />}
+          {activeMenu === "tickets" && <AdminTicketsSection locale={locale} />}
+          {activeMenu === "regions" && <AdminRegionsSection locale={locale} />}
+          {activeMenu === "settings" && <AdminSettingsSection locale={locale} />}
+          {activeMenu === "audit" && <AdminAuditSection locale={locale} />}
 
-            <div className="flex items-center gap-2.5 self-start sm:self-center">
-              <button
-                type="button"
-                onClick={handleExportExcel}
-                className="h-10 px-4 bg-primary text-white text-xs font-bold rounded-btn hover:bg-primary-hover flex items-center gap-2 shadow-sm transition-colors cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>{locale === "uz" ? "Excel hisobot" : "Отчёт Excel"}</span>
-              </button>
-              <button
-                type="button"
-                onClick={handlePrint}
-                className="h-10 px-4 border border-border bg-surface text-text text-xs font-semibold rounded-btn hover:bg-surface-muted flex items-center gap-2 transition-colors cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5 text-text-muted" />
-                <span>{locale === "uz" ? "Chop etish" : "Печать"}</span>
-              </button>
-            </div>
-          </div>
+          {activeMenu === "dashboard" && (
+            <>
+              {/* Header Title */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-extrabold text-text tracking-tight">
+                    {locale === "uz" ? "Boshqaruv paneli" : "Панель управления"}
+                  </h1>
+                  <p className="text-xs text-text-secondary mt-1">
+                    {locale === "uz"
+                      ? "Platformadagi savdo faoliyati statistikasi • Yangilandi: Bugun, 19:20"
+                      : "Статистика торговой активности на платформе • Обновлено: Сегодня, 19:20"}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5 self-start sm:self-center">
+                  <button
+                    type="button"
+                    onClick={handleExportExcel}
+                    className="h-10 px-4 bg-primary text-white text-xs font-bold rounded-btn hover:bg-primary-hover flex items-center gap-2 shadow-sm transition-colors cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>{locale === "uz" ? "Excel hisobot" : "Отчёт Excel"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePrint}
+                    className="h-10 px-4 border border-border bg-surface text-text text-xs font-semibold rounded-btn hover:bg-surface-muted flex items-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-text-muted" />
+                    <span>{locale === "uz" ? "Chop etish" : "Печать"}</span>
+                  </button>
+                </div>
+              </div>
 
           {/* 2.2 Global Sticky Filter Panel */}
           <div className="bg-surface rounded-card border border-border p-5 shadow-sm space-y-4">
@@ -1162,6 +1191,8 @@ export default function AdminDashboardPage() {
               </div>
             </div>
           </div>
+          </>
+          )}
         </main>
       </div>
 

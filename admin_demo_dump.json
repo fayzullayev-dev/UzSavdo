@@ -1,0 +1,1290 @@
+{
+  "users": [
+    {
+      "id": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "companyName": "UzSavdo Ma'muriyati",
+      "firstName": "Admin",
+      "lastName": "UzSavdo",
+      "phone": "+998 (71) 200-00-00",
+      "login": "admin",
+      "role": "ADMIN",
+      "isBlocked": false,
+      "ratingAvg": 5,
+      "createdAt": "2026-11-11T13:06:44.353Z"
+    },
+    {
+      "id": "c96f6a27-5107-44a4-b3f2-684e17b09fbc",
+      "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ",
+      "firstName": "Alisher",
+      "lastName": "Usmonov",
+      "phone": "+998 (90) 123-45-67",
+      "login": "agro_sharq",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:06:44.482Z"
+    },
+    {
+      "id": "4183bad6-f98c-4d72-9711-15ee38c1d7f5",
+      "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi",
+      "firstName": "Bobur",
+      "lastName": "Qosimov",
+      "phone": "+998 (91) 234-56-78",
+      "login": "vodiy_boglari",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:08:09.241Z"
+    },
+    {
+      "id": "c70500a5-3210-4eda-b6e1-c3c5fe0d42c5",
+      "companyName": "«Zarbdor Don Savdo» XK",
+      "firstName": "Jamshid",
+      "lastName": "Karimov",
+      "phone": "+998 (93) 345-67-89",
+      "login": "zarbdor_don",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:08:09.358Z"
+    },
+    {
+      "id": "cc111d01-89e2-4a88-a718-86d1351f2912",
+      "companyName": "«Buxoro Ipak & Tekstil» MChJ",
+      "firstName": "Nodir",
+      "lastName": "Saidov",
+      "phone": "+998 (94) 456-78-90",
+      "login": "buxoro_ipak",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:08:09.479Z"
+    },
+    {
+      "id": "04a0f353-b5be-436c-80b7-b16060759728",
+      "companyName": "«Surxon Agro Eksport» MChJ",
+      "firstName": "Rustam",
+      "lastName": "Rahmonov",
+      "phone": "+998 (97) 567-89-01",
+      "login": "surxon_export",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:08:09.622Z"
+    },
+    {
+      "id": "4c0738b2-e821-492a-8877-010e2d3e3a4b",
+      "companyName": "«Toshkent Grand Savdo» MChJ",
+      "firstName": "Farrux",
+      "lastName": "Nazarov",
+      "phone": "+998 (99) 678-90-12",
+      "login": "toshkent_savdo",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:08:09.743Z"
+    },
+    {
+      "id": "217b7b2b-909b-4afd-bd49-14c024f54072",
+      "companyName": "«Sharq Agro Fayz» MChJ",
+      "firstName": "Alisher",
+      "lastName": "Usmonov",
+      "phone": "+998 (90) 000-00-01",
+      "login": "demo",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.9,
+      "createdAt": "2026-11-11T13:48:18.295Z"
+    },
+    {
+      "id": "c2e6ec71-86b2-4e97-82df-0cdceed64841",
+      "companyName": "«Toshkent Grand Savdo» MChJ",
+      "firstName": "Farrux",
+      "lastName": "Nazarov",
+      "phone": "+998 (90) 000-00-02",
+      "login": "demo2",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 4.8,
+      "createdAt": "2026-11-11T13:48:18.410Z"
+    },
+    {
+      "id": "9fa2c034-5101-47d5-bf3b-a20cd5d71a2b",
+      "companyName": "Forex Market MCHJ",
+      "firstName": "Alisher",
+      "lastName": "Usmonov",
+      "phone": "+998 (99 999 99 99",
+      "login": "ishxona",
+      "role": "USER",
+      "isBlocked": false,
+      "ratingAvg": 5,
+      "createdAt": "2026-11-11T13:49:34.063Z"
+    }
+  ],
+  "listings": [
+    {
+      "id": "08e0532d-45bd-43d8-a902-d3aa11b053fc",
+      "title": "100% paxta ip-kalava Ne 30/1 ring kardli",
+      "titleRu": "100% хлопчатобумажная пряжа Ne 30/1 кардная кольцевая",
+      "pricePerUnit": "34000",
+      "unit": "kg",
+      "totalQuantity": "25000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Paxta va toʻqimachilik",
+        "nameRu": "Хлопок и текстиль"
+      },
+      "seller": {
+        "companyName": "«Buxoro Ipak & Tekstil» MChJ",
+        "firstName": "Nodir"
+      }
+    },
+    {
+      "id": "0ef0551f-4c1a-429a-a490-cba689b63b52",
+      "title": "Ertapishar Qrimson Svit tarvuzlari, Termiz",
+      "titleRu": "Раннеспелые арбузы Кримсон Свит, Термез",
+      "pricePerUnit": "1800",
+      "unit": "kg",
+      "totalQuantity": "30000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Poliz mahsulotlari",
+        "nameRu": "Бахчевые культуры"
+      },
+      "seller": {
+        "companyName": "«Surxon Agro Eksport» MChJ",
+        "firstName": "Rustam"
+      }
+    },
+    {
+      "id": "13e737a3-9939-4120-aaf6-31726af99a6a",
+      "title": "Shirin qizil sabzi (Mshak), tozalangan qoplarda",
+      "titleRu": "Сладкая красная морковь (Мшак), очищенная в мешках",
+      "pricePerUnit": "3100",
+      "unit": "kg",
+      "totalQuantity": "8000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Sabzavotlar",
+        "nameRu": "Овощи"
+      },
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ",
+        "firstName": "Alisher"
+      }
+    },
+    {
+      "id": "1fd3c018-35a7-44ba-955a-446fbecd5647",
+      "title": "Presslangan sifatli yashil beda, 2026-yil",
+      "titleRu": "Прессованная качественная зеленая люцерна, урожай 2026",
+      "pricePerUnit": "28000",
+      "unit": "dona",
+      "totalQuantity": "4500",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Chorva ozuqasi",
+        "nameRu": "Корма для скота"
+      },
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ",
+        "firstName": "Alisher"
+      }
+    },
+    {
+      "id": "27664b0a-95ff-46a3-87aa-d07f962f950d",
+      "title": "Navoiyazot ammiakli selitrasi N 34.4%, qoplarda",
+      "titleRu": "Аммиачная селитра Навоиазот N 34.4%, в мешках",
+      "pricePerUnit": "165000",
+      "unit": "qop",
+      "totalQuantity": "1200",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Oʻgʻitlar va agrokimyo",
+        "nameRu": "Удобрения и агрохимия"
+      },
+      "seller": {
+        "companyName": "«Zarbdor Don Savdo» XK",
+        "firstName": "Jamshid"
+      }
+    },
+    {
+      "id": "2b3eb838-4146-4ce5-bb3f-4f60dc247ac2",
+      "title": "Qishki oqbosh karam, 2-3 kg li zich boshlar",
+      "titleRu": "Зимняя белокочанная капуста, плотные кочаны по 2-3 кг",
+      "pricePerUnit": "2200",
+      "unit": "kg",
+      "totalQuantity": "18000",
+      "status": "ACTIVE",
+      "viewsCount": 2,
+      "category": {
+        "nameUz": "Sabzavotlar",
+        "nameRu": "Овощи"
+      },
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi",
+        "firstName": "Bobur"
+      }
+    },
+    {
+      "id": "352bea8e-9529-4feb-a72e-9a1c02616f9f",
+      "title": "Yosh novvos go'shti (lahm va suyakli), halol so'yilgan",
+      "titleRu": "Мясо молодого бычка (мякоть и на кости), халяльный забой",
+      "pricePerUnit": "82000",
+      "unit": "kg",
+      "totalQuantity": "1800",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Goʻsht, parranda va baliq",
+        "nameRu": "Мясо, птица и рыба"
+      },
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ",
+        "firstName": "Farrux"
+      }
+    },
+    {
+      "id": "46c17a8e-ba07-4037-a757-4b4dc7f83424",
+      "title": "Mirzacho'l va Torpeda navli shirin qovunlar",
+      "titleRu": "Сладкие дыни сортов Мирзачуль и Торпеда",
+      "pricePerUnit": "15000",
+      "unit": "dona",
+      "totalQuantity": "8000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Poliz mahsulotlari",
+        "nameRu": "Бахчевые культуры"
+      },
+      "seller": {
+        "companyName": "«Surxon Agro Eksport» MChJ",
+        "firstName": "Rustam"
+      }
+    },
+    {
+      "id": "5c6d266d-830e-495d-8920-66b5f5ea6304",
+      "title": "Eksportbop qizil va sariq piyoz, sifat kafolati",
+      "titleRu": "Экспортный красный и желтый лук, гарантия качества",
+      "pricePerUnit": "2500",
+      "unit": "kg",
+      "totalQuantity": "25000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Sabzavotlar",
+        "nameRu": "Овощи"
+      },
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ",
+        "firstName": "Alisher"
+      }
+    },
+    {
+      "id": "695ba999-1291-44cd-a709-9de99540434d",
+      "title": "Issiqxona pushti pomidori (Rozoviy ray), 1-nav",
+      "titleRu": "Тепличные розовые томаты (Розовый рай), 1-й сорт",
+      "pricePerUnit": "14000",
+      "unit": "kg",
+      "totalQuantity": "6000",
+      "status": "ACTIVE",
+      "viewsCount": 0,
+      "category": {
+        "nameUz": "Sabzavotlar",
+        "nameRu": "Овощи"
+      },
+      "seller": {
+        "companyName": "«Surxon Agro Eksport» MChJ",
+        "firstName": "Rustam"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "328d3b19-4e96-4ee1-ac18-66d26fe5f50a",
+      "nameUz": "Sabzavotlar",
+      "nameRu": "Овощи",
+      "icon": "Carrot",
+      "isActive": true,
+      "sortOrder": 1,
+      "_count": {
+        "products": 12,
+        "listings": 6
+      }
+    },
+    {
+      "id": "1b387f99-c8d5-48f0-bcc9-de81dc2be9be",
+      "nameUz": "Mevalar",
+      "nameRu": "Фрукты",
+      "icon": "Apple",
+      "isActive": true,
+      "sortOrder": 2,
+      "_count": {
+        "products": 9,
+        "listings": 4
+      }
+    },
+    {
+      "id": "37016cb4-9f6d-44ec-a08d-0241fe9d6585",
+      "nameUz": "Poliz mahsulotlari",
+      "nameRu": "Бахчевые культуры",
+      "icon": "Citrus",
+      "isActive": true,
+      "sortOrder": 3,
+      "_count": {
+        "products": 3,
+        "listings": 2
+      }
+    },
+    {
+      "id": "cde88f63-7cd2-4d3b-9bcf-2c958a70723a",
+      "nameUz": "Don va dukkakli ekinlar",
+      "nameRu": "Зерновые и бобовые",
+      "icon": "Wheat",
+      "isActive": true,
+      "sortOrder": 4,
+      "_count": {
+        "products": 8,
+        "listings": 3
+      }
+    },
+    {
+      "id": "562cf775-7cda-4644-ba43-6f29fbac8882",
+      "nameUz": "Quruq mevalar va yongʻoqlar",
+      "nameRu": "Сухофрукты и орехи",
+      "icon": "Nut",
+      "isActive": true,
+      "sortOrder": 5,
+      "_count": {
+        "products": 6,
+        "listings": 2
+      }
+    },
+    {
+      "id": "68c8ae71-f942-4aca-b57f-653bb9f81218",
+      "nameUz": "Goʻsht, parranda va baliq",
+      "nameRu": "Мясо, птица и рыба",
+      "icon": "Beef",
+      "isActive": true,
+      "sortOrder": 6,
+      "_count": {
+        "products": 4,
+        "listings": 1
+      }
+    },
+    {
+      "id": "033b73dc-8c33-4a9f-9891-c67f28fc4d1c",
+      "nameUz": "Sut mahsulotlari va tuxum",
+      "nameRu": "Молочная продукция и яйца",
+      "icon": "Milk",
+      "isActive": true,
+      "sortOrder": 7,
+      "_count": {
+        "products": 7,
+        "listings": 1
+      }
+    },
+    {
+      "id": "0548f60c-7c11-4477-a1fd-f1ed10ac0105",
+      "nameUz": "Chorva ozuqasi",
+      "nameRu": "Корма для скота",
+      "icon": "Sprout",
+      "isActive": true,
+      "sortOrder": 8,
+      "_count": {
+        "products": 6,
+        "listings": 1
+      }
+    },
+    {
+      "id": "f860420b-3bb6-4b39-b4fa-fb4c0d125a7b",
+      "nameUz": "Xoʻjalik tovarlari",
+      "nameRu": "Хозяйственные товары",
+      "icon": "Home",
+      "isActive": true,
+      "sortOrder": 9,
+      "_count": {
+        "products": 7,
+        "listings": 2
+      }
+    },
+    {
+      "id": "9d3fd3f4-f4a7-4dd3-ad7c-40e9b2c80602",
+      "nameUz": "Maishiy kimyo",
+      "nameRu": "Бытовая химия",
+      "icon": "SprayCan",
+      "isActive": true,
+      "sortOrder": 10,
+      "_count": {
+        "products": 6,
+        "listings": 2
+      }
+    },
+    {
+      "id": "b1fd188d-199c-407f-8165-6d4e8c2e991b",
+      "nameUz": "Oʻgʻitlar va agrokimyo",
+      "nameRu": "Удобрения и агрохимия",
+      "icon": "FlaskConical",
+      "isActive": true,
+      "sortOrder": 11,
+      "_count": {
+        "products": 7,
+        "listings": 1
+      }
+    },
+    {
+      "id": "4d6c0f87-056c-418f-8bc6-0775ee2b15c6",
+      "nameUz": "Urugʻ va koʻchatlar",
+      "nameRu": "Семена и саженцы",
+      "icon": "Leaf",
+      "isActive": true,
+      "sortOrder": 12,
+      "_count": {
+        "products": 4,
+        "listings": 1
+      }
+    },
+    {
+      "id": "59f74604-932d-4c3f-aef7-e2792ba15afc",
+      "nameUz": "Qurilish materiallari",
+      "nameRu": "Строительные материалы",
+      "icon": "BrickWall",
+      "isActive": true,
+      "sortOrder": 13,
+      "_count": {
+        "products": 6,
+        "listings": 3
+      }
+    },
+    {
+      "id": "4c7e88d3-a9ad-4628-8bc1-3cf6ab1eb48e",
+      "nameUz": "Paxta va toʻqimachilik",
+      "nameRu": "Хлопок и текстиль",
+      "icon": "Shirt",
+      "isActive": true,
+      "sortOrder": 14,
+      "_count": {
+        "products": 4,
+        "listings": 1
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "00887f2a-a3b2-4e5a-81a9-6021400f41c9",
+      "nameUz": "Bulgʻor qalampiri",
+      "nameRu": "Болгарский перец",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Sabzavotlar"
+      }
+    },
+    {
+      "id": "03722ca6-18b2-4b43-a9a2-62236c1a9cab",
+      "nameUz": "Tovuq goʻshti",
+      "nameRu": "Курятина",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Goʻsht, parranda va baliq"
+      }
+    },
+    {
+      "id": "072dc65b-7489-4abe-aca1-ac0629cf2329",
+      "nameUz": "Bodom",
+      "nameRu": "Миндаль",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Quruq mevalar va yongʻoqlar"
+      }
+    },
+    {
+      "id": "097bf6d3-728f-495b-b328-e4f9103ee9da",
+      "nameUz": "Suzma",
+      "nameRu": "Сузьма",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Sut mahsulotlari va tuxum"
+      }
+    },
+    {
+      "id": "0e52b6ee-f469-4182-8af4-b4c003177e4e",
+      "nameUz": "Tarvuz",
+      "nameRu": "Арбуз",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Poliz mahsulotlari"
+      }
+    },
+    {
+      "id": "15f2308d-34e7-4798-a56d-915f34a57900",
+      "nameUz": "Qoplar",
+      "nameRu": "Мешки",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Xoʻjalik tovarlari"
+      }
+    },
+    {
+      "id": "1de97695-cb8c-4092-a56a-053cff6b5de0",
+      "nameUz": "Noʻxat",
+      "nameRu": "Нут",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Don va dukkakli ekinlar"
+      }
+    },
+    {
+      "id": "210563d3-0aba-43ef-84a4-1ade9853cb29",
+      "nameUz": "Shagʻal",
+      "nameRu": "Щебень",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Qurilish materiallari"
+      }
+    },
+    {
+      "id": "22c7acea-a3e0-4b22-9b00-c493dc23fba6",
+      "nameUz": "Beda",
+      "nameRu": "Люцерна",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Chorva ozuqasi"
+      }
+    },
+    {
+      "id": "23b7048d-5451-4152-b399-3bdccc507a17",
+      "nameUz": "Supurgi",
+      "nameRu": "Веники",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Xoʻjalik tovarlari"
+      }
+    },
+    {
+      "id": "2628c307-3e64-4368-92a5-ad2af1adaa18",
+      "nameUz": "Kepak",
+      "nameRu": "Отруби",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Chorva ozuqasi"
+      }
+    },
+    {
+      "id": "262d2072-9bcf-4e48-9664-d9af18c06edc",
+      "nameUz": "Suyuq sovun",
+      "nameRu": "Жидкое мыло",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Maishiy kimyo"
+      }
+    },
+    {
+      "id": "26692d96-ab08-428a-8508-24810a814e7f",
+      "nameUz": "Togʻora",
+      "nameRu": "Тазы",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Xoʻjalik tovarlari"
+      }
+    },
+    {
+      "id": "268de4ba-f487-49dc-b4e0-4d7db86aeb0f",
+      "nameUz": "Kaliy oʻgʻiti",
+      "nameRu": "Калийное удобрение",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Oʻgʻitlar va agrokimyo"
+      }
+    },
+    {
+      "id": "2ba0440d-49c9-4539-9727-cd1a0d5eec90",
+      "nameUz": "Omuxta yem",
+      "nameRu": "Комбикорм",
+      "isApproved": true,
+      "category": {
+        "nameUz": "Chorva ozuqasi"
+      }
+    }
+  ],
+  "contracts": [
+    {
+      "id": "6821508e-1e49-4f62-9e5c-4d50e88b4cd2",
+      "number": "SH-2026-000004",
+      "quantity": "300",
+      "unit": "kg",
+      "pricePerUnit": "45000",
+      "estimatedTotal": "13500000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:08:13.327Z",
+      "seller": {
+        "companyName": "«Buxoro Ipak & Tekstil» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "listing": {
+        "title": "Qora kishmish va soyagi sara mayiz"
+      }
+    },
+    {
+      "id": "7f98e1ad-df93-4e91-99eb-ee07725cf1e8",
+      "number": "SH-2026-000005",
+      "quantity": "100",
+      "unit": "qop",
+      "pricePerUnit": "48000",
+      "estimatedTotal": "4800000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:08:13.427Z",
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Zarbdor Don Savdo» XK"
+      },
+      "listing": {
+        "title": "Bekobod M-500 sementi, 50 kg zavod qoplarda"
+      }
+    },
+    {
+      "id": "ac2c46fd-6bf6-40a5-8a56-a2959e478b11",
+      "number": "SH-2026-000006",
+      "quantity": "3000",
+      "unit": "dona",
+      "pricePerUnit": "1350",
+      "estimatedTotal": "4050000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:52:18.472Z",
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "buyer": {
+        "companyName": "Forex Market MCHJ"
+      },
+      "listing": {
+        "title": "Pishiq qizil g'isht M-125, Toshkent zavodidan"
+      }
+    },
+    {
+      "id": "b1b81c69-8964-47eb-8d90-05b6c4f68a5f",
+      "number": "SH-2026-000007",
+      "quantity": "501",
+      "unit": "kg",
+      "pricePerUnit": "2200",
+      "estimatedTotal": "1102200",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:56:22.624Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Forex Market MCHJ"
+      },
+      "listing": {
+        "title": "Qishki oqbosh karam, 2-3 kg li zich boshlar"
+      }
+    },
+    {
+      "id": "e0b2d10a-6c94-4912-b6d8-84830e387b18",
+      "number": "SH-2026-000003",
+      "quantity": "2000",
+      "unit": "kg",
+      "pricePerUnit": "19500",
+      "estimatedTotal": "39000000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:08:13.228Z",
+      "seller": {
+        "companyName": "«Zarbdor Don Savdo» XK"
+      },
+      "buyer": {
+        "companyName": "«Surxon Agro Eksport» MChJ"
+      },
+      "listing": {
+        "title": "Lazer va Alanga navli sara guruch, Andijon"
+      }
+    },
+    {
+      "id": "e1db9228-cc55-4d51-b392-2989f4f55a9c",
+      "number": "SH-2026-000002",
+      "quantity": "500",
+      "unit": "kg",
+      "pricePerUnit": "8500",
+      "estimatedTotal": "4250000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:08:13.118Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ"
+      },
+      "listing": {
+        "title": "Golden Delishes va Besh yulduz navli olma"
+      }
+    },
+    {
+      "id": "e3e766b3-173a-4f86-a361-e48afe7b73d8",
+      "number": "SH-2026-000001",
+      "quantity": "1000",
+      "unit": "kg",
+      "pricePerUnit": "4200",
+      "estimatedTotal": "4200000",
+      "status": "PAID",
+      "isTrial": true,
+      "createdAt": "2026-11-11T13:08:13.002Z",
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "listing": {
+        "title": "Gala navli sara kartoshka, Samarqand 2026"
+      }
+    }
+  ],
+  "orders": [
+    {
+      "id": "19cb06a9-3a7e-4d2c-8cfc-9cb29f2601ac",
+      "quantity": "1000",
+      "status": "PENDING",
+      "expiresAt": "2026-11-13T13:08:13.000Z",
+      "createdAt": "2026-11-11T13:08:13.002Z",
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "listing": {
+        "title": "Gala navli sara kartoshka, Samarqand 2026",
+        "pricePerUnit": "4200",
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "6500c809-33ed-4594-befd-23ea40405140",
+      "quantity": "501",
+      "status": "PENDING",
+      "expiresAt": "2026-11-14T13:56:27.523Z",
+      "createdAt": "2026-11-11T13:56:27.525Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Forex Market MCHJ"
+      },
+      "listing": {
+        "title": "Qishki oqbosh karam, 2-3 kg li zich boshlar",
+        "pricePerUnit": "2200",
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "768a550f-83ab-40c3-8a20-2ac170a1eb24",
+      "quantity": "2000",
+      "status": "COMPLETED",
+      "expiresAt": "2026-11-13T13:08:13.000Z",
+      "createdAt": "2026-11-11T13:08:13.228Z",
+      "seller": {
+        "companyName": "«Zarbdor Don Savdo» XK"
+      },
+      "buyer": {
+        "companyName": "«Surxon Agro Eksport» MChJ"
+      },
+      "listing": {
+        "title": "Lazer va Alanga navli sara guruch, Andijon",
+        "pricePerUnit": "19500",
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "85a347a8-5f7e-4c5e-9126-59c2b4f3c1d2",
+      "quantity": "100",
+      "status": "REJECTED",
+      "expiresAt": "2026-11-13T13:08:13.000Z",
+      "createdAt": "2026-11-11T13:08:13.427Z",
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Zarbdor Don Savdo» XK"
+      },
+      "listing": {
+        "title": "Bekobod M-500 sementi, 50 kg zavod qoplarda",
+        "pricePerUnit": "48000",
+        "unit": "qop"
+      }
+    },
+    {
+      "id": "8a24add1-4acd-4f69-99f8-8f7e6d70f4ee",
+      "quantity": "500",
+      "status": "ACCEPTED",
+      "expiresAt": "2026-11-13T13:08:13.000Z",
+      "createdAt": "2026-11-11T13:08:13.118Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ"
+      },
+      "listing": {
+        "title": "Golden Delishes va Besh yulduz navli olma",
+        "pricePerUnit": "8500",
+        "unit": "kg"
+      }
+    },
+    {
+      "id": "b771ed4f-e2fc-463d-a817-b11e58ffacd0",
+      "quantity": "3000",
+      "status": "PENDING",
+      "expiresAt": "2026-11-14T13:52:29.293Z",
+      "createdAt": "2026-11-11T13:52:29.295Z",
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "buyer": {
+        "companyName": "Forex Market MCHJ"
+      },
+      "listing": {
+        "title": "Pishiq qizil g'isht M-125, Toshkent zavodidan",
+        "pricePerUnit": "1350",
+        "unit": "dona"
+      }
+    },
+    {
+      "id": "f61d5495-a8c4-45b4-84d9-2a810a29d083",
+      "quantity": "300",
+      "status": "EXPIRED",
+      "expiresAt": "2026-11-07T13:08:13.326Z",
+      "createdAt": "2026-11-11T13:08:13.327Z",
+      "seller": {
+        "companyName": "«Buxoro Ipak & Tekstil» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "listing": {
+        "title": "Qora kishmish va soyagi sara mayiz",
+        "pricePerUnit": "45000",
+        "unit": "kg"
+      }
+    }
+  ],
+  "complaints": [
+    {
+      "id": "514fe797-e643-4e4e-80ef-99bbc0f8a099",
+      "reason": "PRICE_MISMATCH",
+      "comment": "Telefon qilganda eʼlondagi narx 1350 emas, 1800 soʻm deb aytishdi.",
+      "status": "PENDING",
+      "createdAt": "2026-11-12T12:09:53.939Z",
+      "reporter": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ"
+      }
+    },
+    {
+      "id": "03a563c7-5754-492f-8ad8-a621e707d879",
+      "reason": "QUALITY_ISSUE",
+      "comment": "Mahsulot sifati rasmdagidek emas, yaroqsiz qismi koʻp.",
+      "status": "IN_REVIEW",
+      "createdAt": "2026-11-12T12:09:53.939Z",
+      "reporter": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ"
+      }
+    },
+    {
+      "id": "c93edd2f-0100-4df8-ae30-b37d744ae0cf",
+      "reason": "OUT_OF_STOCK",
+      "comment": "Omborda tovar yoʻq ekan, eʼlon oʻz vaqtida yopilmagan.",
+      "status": "RESOLVED",
+      "createdAt": "2026-11-12T12:09:53.939Z",
+      "reporter": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ"
+      }
+    }
+  ],
+  "tickets": [
+    {
+      "id": "2463896f-2694-4d49-91d5-50262f0468dd",
+      "subject": "Shartnomani yuklab olishda xatolik",
+      "message": "PDF formatda shartnomani yuklayotganda fayl ochilmayapti.",
+      "status": "OPEN",
+      "adminReply": null,
+      "createdAt": "2026-11-12T12:09:54.071Z",
+      "user": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ",
+        "phone": "+998 (90) 000-00-01"
+      }
+    },
+    {
+      "id": "ee1a54c3-9031-47fb-a866-93c4716b8f73",
+      "subject": "Yetkazib berish shartlari",
+      "message": "Boshqa viloyatga yetkazib berish xizmati narxi qanday hisoblanadi?",
+      "status": "ANSWERED",
+      "adminReply": "Yetkazib berish xaridor va sotuvchi oʻrtasidagi shartnomada kelishilgan tarif asosida amalga oshiriladi.",
+      "createdAt": "2026-11-12T12:09:54.071Z",
+      "user": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ",
+        "phone": "+998 (90) 000-00-01"
+      }
+    },
+    {
+      "id": "844e5f97-0185-4375-a582-10dbc102e722",
+      "subject": "Tadbirkorlik hisobini tasdiqlash",
+      "message": "STIR va yuridik maʼlumotlarim tekshiruvdan oʻtdimi?",
+      "status": "CLOSED",
+      "adminReply": "Ha, maʼlumotlaringiz tasdiqlandi va profilingizga tasdiqlangan tadbirkor belgisi berildi.",
+      "createdAt": "2026-11-12T12:09:54.071Z",
+      "user": {
+        "firstName": "Alisher",
+        "companyName": "«Sharq Agro Fayz» MChJ",
+        "phone": "+998 (90) 000-00-01"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "id": "73a1285e-91b5-46a8-bd2b-8de611176513",
+      "rating": 5,
+      "text": "Guruch juda sifatli ekan, kelishilgan vaqtda yetkazib berishdi. Katta rahmat!",
+      "sellerReply": "Xaridingiz uchun rahmat, doimiy hamkorlikdan mamnunmiz!",
+      "isHidden": false,
+      "createdAt": "2026-11-11T13:08:13.228Z",
+      "seller": {
+        "companyName": "«Zarbdor Don Savdo» XK"
+      },
+      "buyer": {
+        "companyName": "«Surxon Agro Eksport» MChJ",
+        "firstName": "Rustam"
+      }
+    },
+    {
+      "id": "b5b8d494-0d67-431e-b455-58063b15624c",
+      "rating": 5,
+      "text": "Juda tez va sifatli yetkazib berildi, rahmat! Tovarlar a'lo darajada qadoqlangan.",
+      "sellerReply": "Xaridingiz uchun tashakkur! Har doim xizmatingizdamiz.",
+      "isHidden": false,
+      "createdAt": "2026-11-12T12:10:32.344Z",
+      "seller": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Toshkent Grand Savdo» MChJ",
+        "firstName": "Farrux"
+      }
+    },
+    {
+      "id": "0adf89f8-0e2e-4c6a-a8bf-e6e1733ad34a",
+      "rating": 5,
+      "text": "Juda tez va sifatli yetkazib berildi, rahmat! Tovarlar a'lo darajada qadoqlangan.",
+      "sellerReply": "Xaridingiz uchun tashakkur! Har doim xizmatingizdamiz.",
+      "isHidden": false,
+      "createdAt": "2026-11-12T12:10:32.471Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Forex Market MCHJ",
+        "firstName": "Alisher"
+      }
+    },
+    {
+      "id": "788f5ca8-bf56-4ac8-9571-c00a743b37a6",
+      "rating": 5,
+      "text": "Juda tez va sifatli yetkazib berildi, rahmat! Tovarlar a'lo darajada qadoqlangan.",
+      "sellerReply": "Xaridingiz uchun tashakkur! Har doim xizmatingizdamiz.",
+      "isHidden": false,
+      "createdAt": "2026-11-12T12:10:32.604Z",
+      "seller": {
+        "companyName": "«Toshkent Grand Savdo» MChJ"
+      },
+      "buyer": {
+        "companyName": "«Zarbdor Don Savdo» XK",
+        "firstName": "Jamshid"
+      }
+    },
+    {
+      "id": "350f9a15-676c-43ea-982d-a8ef81d628ff",
+      "rating": 5,
+      "text": "Juda tez va sifatli yetkazib berildi, rahmat! Tovarlar a'lo darajada qadoqlangan.",
+      "sellerReply": "Xaridingiz uchun tashakkur! Har doim xizmatingizdamiz.",
+      "isHidden": false,
+      "createdAt": "2026-11-12T12:10:32.725Z",
+      "seller": {
+        "companyName": "«Vodiy Bog'lari» Fermer xo'jaligi"
+      },
+      "buyer": {
+        "companyName": "Р вЂ™Р’В«Sharq Agro FayzР вЂ™Р’В» MChJ",
+        "firstName": "Alisher"
+      }
+    }
+  ],
+  "regions": [
+    {
+      "id": "bd70139c-8c4e-4229-9dcf-d6a675587f6c",
+      "nameUz": "Qoraqalpogʻiston Respublikasi",
+      "nameRu": "Республика Каракалпакстан",
+      "type": "REPUBLIC",
+      "isActive": true,
+      "_count": {
+        "districts": 17,
+        "listings": 0
+      }
+    },
+    {
+      "id": "3a161061-2cdc-44d4-9eae-56f454025d02",
+      "nameUz": "Andijon viloyati",
+      "nameRu": "Андижанская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 15,
+        "listings": 5
+      }
+    },
+    {
+      "id": "52409b75-090e-4feb-8499-50246907c1b1",
+      "nameUz": "Buxoro viloyati",
+      "nameRu": "Бухарская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 12,
+        "listings": 5
+      }
+    },
+    {
+      "id": "4ef6b572-126b-4f8f-84da-2358269a2fc2",
+      "nameUz": "Fargʻona viloyati",
+      "nameRu": "Ферганская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 18,
+        "listings": 5
+      }
+    },
+    {
+      "id": "e569fddb-3406-4bd6-a0b7-987e9871f280",
+      "nameUz": "Jizzax viloyati",
+      "nameRu": "Джизакская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 13,
+        "listings": 0
+      }
+    },
+    {
+      "id": "66d5d990-2259-4749-8a9f-6fa98542d1cb",
+      "nameUz": "Namangan viloyati",
+      "nameRu": "Наманганская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 12,
+        "listings": 0
+      }
+    },
+    {
+      "id": "e1094e07-9d5f-486b-89f0-7bbb1afb6734",
+      "nameUz": "Navoiy viloyati",
+      "nameRu": "Навоийская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 9,
+        "listings": 0
+      }
+    },
+    {
+      "id": "ca0a6e56-5b65-4803-b52c-b7548808f9fc",
+      "nameUz": "Qashqadaryo viloyati",
+      "nameRu": "Кашкадарьинская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 16,
+        "listings": 0
+      }
+    },
+    {
+      "id": "c0267fd7-7d63-4e2e-b702-ba7097506a02",
+      "nameUz": "Samarqand viloyati",
+      "nameRu": "Самаркандская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 16,
+        "listings": 5
+      }
+    },
+    {
+      "id": "a4578e20-4f43-4c02-9c48-57ce0f24a2bb",
+      "nameUz": "Sirdaryo viloyati",
+      "nameRu": "Сырдарьинская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 9,
+        "listings": 0
+      }
+    },
+    {
+      "id": "316300a9-7be2-44fe-87f6-013fada9e7c4",
+      "nameUz": "Surxondaryo viloyati",
+      "nameRu": "Сурхандарьинская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 15,
+        "listings": 5
+      }
+    },
+    {
+      "id": "64b4108f-460a-4fcc-b792-ffe16556feb5",
+      "nameUz": "Toshkent viloyati",
+      "nameRu": "Ташкентская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 19,
+        "listings": 0
+      }
+    },
+    {
+      "id": "b12e3328-0fcc-44e0-ab70-af0ba27fcfa8",
+      "nameUz": "Xorazm viloyati",
+      "nameRu": "Хорезмская область",
+      "type": "VILOYAT",
+      "isActive": true,
+      "_count": {
+        "districts": 13,
+        "listings": 0
+      }
+    },
+    {
+      "id": "885b5210-f6bd-47dd-9c74-94a37624af00",
+      "nameUz": "Toshkent shahri",
+      "nameRu": "город Ташкент",
+      "type": "CITY",
+      "isActive": true,
+      "_count": {
+        "districts": 12,
+        "listings": 5
+      }
+    }
+  ],
+  "settings": [
+    {
+      "key": "contract_fee",
+      "value": "{\"amount\":0,\"currency\":\"UZS\"}",
+      "updatedById": null,
+      "updatedAt": "2026-11-11T13:06:12.422Z"
+    },
+    {
+      "key": "trial_period",
+      "value": "{\"isEnabled\":true,\"endsAt\":\"2027-01-10T13:06:12.756Z\"}",
+      "updatedById": null,
+      "updatedAt": "2026-11-11T13:06:12.758Z"
+    },
+    {
+      "key": "commission_rate",
+      "value": "{\"rate\":0.015,\"enabled\":true,\"trialEndsAt\":\"2027-01-10T00:00:00.000Z\"}",
+      "updatedById": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "updatedAt": "2026-11-12T12:09:53.687Z"
+    },
+    {
+      "key": "order_timeout_hours",
+      "value": "{\"hours\":72,\"autoCancel\":true}",
+      "updatedById": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "updatedAt": "2026-11-12T12:09:53.827Z"
+    }
+  ],
+  "audit": [
+    {
+      "id": "67bf422a-e301-4a9d-a4c0-7aa214fc019c",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "CONFIRM_VERIFICATION",
+      "entity": "USER",
+      "entityId": "c96f6a27-5107-44a4-b3f2-684e17b09fbc",
+      "before": null,
+      "after": "{\"verified\":true,\"company\":\"Bekobod Metallsanoat\"}",
+      "createdAt": "2026-11-12T12:10:32.836Z"
+    },
+    {
+      "id": "a79e55f5-ce1d-40a4-b820-b58b3abc986b",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "RESOLVE_TICKET",
+      "entity": "SUPPORT_TICKET",
+      "entityId": "ticket-102",
+      "before": null,
+      "after": "{\"status\":\"RESOLVED\",\"admin\":\"Admin Hokimiyat\"}",
+      "createdAt": "2026-11-12T12:10:32.836Z"
+    },
+    {
+      "id": "aa66b3ed-310c-4607-8329-2102040f4c4c",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "BACKUP_DATABASE",
+      "entity": "SYSTEM",
+      "entityId": "backup_2026_11_12",
+      "before": null,
+      "after": "{\"size\":\"42.8 MB\",\"status\":\"SUCCESS\"}",
+      "createdAt": "2026-11-12T12:10:32.836Z"
+    },
+    {
+      "id": "55c3f5a3-9df9-4094-ab6f-3b6fed3b2ac8",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "LOGIN",
+      "entity": "AUTH",
+      "entityId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "before": null,
+      "after": "{\"ip\":\"127.0.0.1\",\"userAgent\":\"Chrome/Admin\"}",
+      "createdAt": "2026-11-12T12:09:54.182Z"
+    },
+    {
+      "id": "0539b4b6-b0d3-4a2f-8880-e9ea5daa5183",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "EXPORT_REPORT",
+      "entity": "REPORT",
+      "entityId": "reg-report-q1",
+      "before": null,
+      "after": "{\"type\":\"REGIONAL_EXCEL\",\"format\":\"xlsx\"}",
+      "createdAt": "2026-11-12T12:09:54.182Z"
+    },
+    {
+      "id": "0a2b2df6-2b45-4d36-9091-bacf5ba22768",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "UPDATE_SETTING",
+      "entity": "SETTING",
+      "entityId": "commission_rate",
+      "before": "{\"rate\":0.02}",
+      "after": "{\"rate\":0.015}",
+      "createdAt": "2026-11-12T12:09:54.182Z"
+    },
+    {
+      "id": "f7b0ef76-91d0-468f-a6c5-6b889c14f899",
+      "actorId": "0808e3c5-8a8f-4e84-98c3-5eb65d33d1c6",
+      "action": "MODERATE_LISTING",
+      "entity": "LISTING",
+      "entityId": "08e0532d-45bd-43d8-a902-d3aa11b053fc",
+      "before": null,
+      "after": "{\"status\":\"ACTIVE\",\"verified\":true}",
+      "createdAt": "2026-11-12T12:09:54.182Z"
+    }
+  ]
+}
