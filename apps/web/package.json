@@ -26,7 +26,6 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tanstack/react-query": "^5.67.1",
     "@types/qrcode": "^1.5.6",
-    "@uzsavdo/shared": "workspace:*",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
