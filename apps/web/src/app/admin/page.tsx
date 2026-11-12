@@ -447,9 +447,9 @@ export default function AdminDashboardPage() {
         </div>
       </header>
 
-      <div className="flex-1 flex w-full">
-        {/* 2.1 Left Menu */}
-        <aside className="w-64 bg-surface border-r border-border shrink-0 hidden lg:block p-4 space-y-1 overflow-y-auto">
+      <div className="flex-1 flex w-full relative">
+        {/* 2.1 Left Menu - Sticky with independent scroll */}
+        <aside className="w-64 bg-surface border-r border-border shrink-0 hidden lg:block p-4 space-y-1 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
           {adminMenuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeMenu === item.id;
