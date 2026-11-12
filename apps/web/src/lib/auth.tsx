@@ -58,20 +58,29 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
     if (typeof window !== "undefined") {
+      const isLoggedOut = localStorage.getItem("uzsavdo_logged_out");
+      if (isLoggedOut === "true") {
+        return null;
+      }
       const saved = localStorage.getItem("uzsavdo_user");
       if (saved) {
         try {
           return JSON.parse(saved);
         } catch {}
       }
+      // If first time visit and not logged out, default to demo user
+      return defaultDemoUser;
     }
-    // Default to admin so all sections and boshqaruv paneli are visible immediately
-    return defaultAdminUser;
+    return null;
   });
 
   const [loading, setLoading] = useState(false);
 
   const refreshUser = async () => {
+    if (typeof window !== "undefined" && localStorage.getItem("uzsavdo_logged_out") === "true") {
+      setUser(null);
+      return;
+    }
     try {
       const data = await apiFetch("/me");
       if (data && (data.user || data.id)) {
@@ -91,6 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = (userData: User) => {
     setUser(userData);
     if (typeof window !== "undefined") {
+      localStorage.removeItem("uzsavdo_logged_out");
       localStorage.setItem("uzsavdo_user", JSON.stringify(userData));
     }
   };
@@ -100,6 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await apiFetch("/auth/logout", { method: "POST" });
     } catch {}
     if (typeof window !== "undefined") {
+      localStorage.setItem("uzsavdo_logged_out", "true");
       localStorage.removeItem("uzsavdo_user");
     }
     setUser(null);

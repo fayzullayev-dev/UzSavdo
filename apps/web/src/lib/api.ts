@@ -173,16 +173,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   }
 
   if (cleanEndpoint === "/me") {
-    return {
-      user: {
-        id: "admin-id",
-        login: "admin",
-        companyName: "Toshkent shahar Hokimiyati",
-        firstName: "Admin",
-        lastName: "Hokimiyat",
-        role: "ADMIN"
-      }
-    };
+    return null;
   }
 
   return {};
