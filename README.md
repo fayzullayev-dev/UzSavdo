@@ -16,6 +16,21 @@
 
 ---
 
+## 🌐 Онлайн Демо (Мижоз ва Ҳамкорларга Кўрсатиш Учун Ҳаволалар)
+
+* **💻 Веб-платформа (Оммавий ҳавола):**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com](https://subaru-induction-jerry-dylan.trycloudflare.com)
+* **📦 Эълонлар каталоги:**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com/listings](https://subaru-induction-jerry-dylan.trycloudflare.com/listings)
+* **🏛️ Ҳокимият бошқарув панели (Admin):**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com/admin](https://subaru-induction-jerry-dylan.trycloudflare.com/admin)
+* **⭐ Рейтинг ва баҳолар тизими:**  
+  [https://subaru-induction-jerry-dylan.trycloudflare.com/ratings](https://subaru-induction-jerry-dylan.trycloudflare.com/ratings)
+* **📱 Мобил илова (Android & iOS):**  
+  `apps/mobile` (Expo SDK 58 + React Native + Expo Router)
+
+---
+
 ## 🌟 Лойиҳа Ҳақида (Project Overview)
 
 **UzSavdo** — Ўзбекистон ҳудудлари ўртасидаги улгуржи савдони рақамлаштириш, фермерлар, ишлаб чиқарувчилар, савдо корхоналари ва давлат харидорлари ўртасидаги тўғридан-тўғри алоқаларни мустаҳкамлаш мақсадида ишлаб чиқилган замонавий миллий B2B платформасидир.

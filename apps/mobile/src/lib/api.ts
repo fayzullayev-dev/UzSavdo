@@ -2,7 +2,7 @@ import { authStorage } from './storage';
 
 // In Expo mobile, localhost is the phone itself.
 // We use public tunnel or custom server IP from EXPO_PUBLIC_API_URL.
-const DEFAULT_URL = 'https://thousand-korea-saving-paperback.trycloudflare.com/api/v1';
+const DEFAULT_URL = 'https://subaru-induction-jerry-dylan.trycloudflare.com/api/v1';
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || DEFAULT_URL;
 
 export async function apiRequest<T = any>(
