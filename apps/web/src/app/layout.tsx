@@ -5,6 +5,13 @@ import { AuthProvider } from "../lib/auth";
 export const metadata = {
   title: "UzSavdo — Oʻzbekiston boʻylab ulgurji savdo maydonchasi",
   description: "Mahsulotlarni joylashtiring, xaridor toping, rasmiy shartnoma tuzing",
+  manifest: "/manifest.json",
+  themeColor: "#14532D",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "UzSavdo",
+  },
 };
 
 export default function RootLayout({

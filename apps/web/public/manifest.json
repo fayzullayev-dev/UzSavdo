@@ -1,0 +1,24 @@
+{
+  "name": "UzSavdo - B2B Ulgurji Savdo",
+  "short_name": "UzSavdo",
+  "description": "Oʻzbekiston Respublikasi milliy B2B ulgurji savdo platformasi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#14532D",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=192&h=192&fit=crop&crop=faces",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=512&h=512&fit=crop&crop=faces",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

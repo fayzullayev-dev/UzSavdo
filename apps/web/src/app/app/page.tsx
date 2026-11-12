@@ -15,40 +15,65 @@ import {
   ArrowRight,
   ExternalLink,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  PlusSquare,
+  Share2
 } from "lucide-react";
 
 export default function AppPage() {
   const { locale } = useLanguage();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
-  const [deviceType, setDeviceType] = useState<"android" | "ios" | "desktop">("desktop");
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Generate QR code pointing to current /app URL
     if (typeof window !== "undefined") {
       const currentUrl = window.location.href;
       QRCode.toDataURL(currentUrl, {
         width: 256,
         margin: 2,
         color: {
-          dark: "#14532d", // UzSavdo primary green
+          dark: "#14532d",
           light: "#ffffff"
         }
       })
         .then((url) => setQrCodeDataUrl(url))
         .catch(console.error);
 
-      // Detect User Agent
-      const ua = navigator.userAgent.toLowerCase();
-      if (/android/i.test(ua)) {
-        setDeviceType("android");
-      } else if (/iphone|ipad|ipod/i.test(ua)) {
-        setDeviceType("ios");
-      } else {
-        setDeviceType("desktop");
+      // PWA install prompt handler
+      const handleBeforeInstall = (e: Event) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+      };
+
+      window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+
+      if (window.matchMedia("(display-mode: standalone)").matches) {
+        setIsInstalled(true);
       }
+
+      return () => {
+        window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+      };
     }
   }, []);
+
+  const handleInstallApp = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === "accepted") {
+        setIsInstalled(true);
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Fallback: download app package
+      const link = document.createElement("a");
+      link.href = "/downloads/uzsavdo-v1.2.apk";
+      link.download = "uzsavdo-v1.2.apk";
+      link.click();
+    }
+  };
 
   return (
     <NavigationLayout>
@@ -61,8 +86,8 @@ export default function AppPage() {
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-text tracking-tight">
             {locale === "uz"
-              ? "UzSavdo mobil ilovasini yuklab oling"
-              : "Скачайте мобильное приложение UzSavdo"}
+              ? "UzSavdo mobil ilovasini oʻrnating"
+              : "Установите мобильное приложение UzSavdo"}
           </h1>
           <p className="text-xs sm:text-sm text-text-secondary max-w-xl mx-auto leading-relaxed">
             {locale === "uz"
@@ -71,9 +96,9 @@ export default function AppPage() {
           </p>
         </div>
 
-        {/* Action Grid: QR Code + Download Options */}
+        {/* Action Grid: QR Code + Install Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-          {/* Card 1: Direct Download (Android / iOS) */}
+          {/* Card 1: 1-Click Install Application on Phone */}
           <div className="bg-surface rounded-[24px] border border-border p-6 sm:p-8 flex flex-col justify-between shadow-sm space-y-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -81,8 +106,8 @@ export default function AppPage() {
                   UZ
                 </div>
                 <div>
-                  <h3 className="font-bold text-base text-text">UzSavdo Android APK</h3>
-                  <p className="text-xs text-text-muted">Versiya: 1.2.0 · Hajmi: 28 MB</p>
+                  <h3 className="font-bold text-base text-text">UzSavdo Mobil Ilova</h3>
+                  <p className="text-xs text-text-muted">Android & iOS · Rasmiy talqin</p>
                 </div>
               </div>
 
@@ -96,41 +121,48 @@ export default function AppPage() {
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
                   <span>
-                    {locale === "uz" ? "Oflayn rejimda eʼlonlarni koʻrish" : "Просмотр объявлений офлайн"}
+                    {locale === "uz" ? "Toʻliq ekranli qulay interfeys" : "Полноэкранный удобный интерфейс"}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
                   <span>
-                    {locale === "uz" ? "Toʻliq oʻzbek va rus tillarida" : "На узбекском и русском языках"}
+                    {locale === "uz" ? "Oʻzbek va rus tillarida" : "На узбекском и русском языках"}
                   </span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-3">
-              {/* Android APK Download Button */}
-              <a
-                href="/downloads/uzsavdo-v1.2.apk"
-                download="uzsavdo-v1.2.apk"
+              {/* Install Button */}
+              <button
+                type="button"
+                onClick={handleInstallApp}
                 className="w-full h-13 py-3.5 px-6 rounded-[16px] bg-primary text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 hover:bg-primary-hover active:scale-98 transition-all"
               >
                 <Download className="w-5 h-5" />
                 <span>
-                  {locale === "uz"
-                    ? "Android uchun yuklab olish (APK)"
-                    : "Скачать для Android (APK)"}
+                  {isInstalled
+                    ? locale === "uz" ? "Ilova oʻrnatilgan ✓" : "Приложение установлено ✓"
+                    : locale === "uz" ? "Telefonga oʻrnatish (1-klik)" : "Установить на телефон (в 1 клик)"}
                 </span>
-              </a>
+              </button>
 
-              {/* iOS Note */}
-              <div className="p-3 rounded-[12px] bg-surface-muted/60 border border-border/70 flex items-center gap-2 text-[11px] text-text-muted">
-                <AlertCircle className="w-4 h-4 text-accent shrink-0" />
-                <span>
+              {/* Instant Instruction for Chrome/Safari */}
+              <div className="p-3 rounded-[14px] bg-surface-muted/60 border border-border/70 text-[11px] text-text-secondary leading-normal space-y-1">
+                <div className="font-semibold text-text flex items-center gap-1.5">
+                  <PlusSquare className="w-3.5 h-3.5 text-primary" />
+                  <span>
+                    {locale === "uz"
+                      ? "Toʻgʻridan-toʻgʻri brauzerdan qoʻshish:"
+                      : "Прямая установка из браузера:"}
+                  </span>
+                </div>
+                <p>
                   {locale === "uz"
-                    ? "Tez orada App Store’da"
-                    : "Скоро в App Store"}
-                </span>
+                    ? "Brauzer menyusidan (⋮ yoki Поделиться) «Ilovani oʻrnatish» yoki «Bosh ekranga qoʻshish» (Добавить на главный экран) tugmasini bosing."
+                    : "В меню браузера (⋮ или Поделиться) нажмите «Установить приложение» или «Добавить на главный экран»."}
+                </p>
               </div>
             </div>
           </div>
@@ -159,17 +191,17 @@ export default function AppPage() {
               </h4>
               <p className="text-xs text-text-muted max-w-xs">
                 {locale === "uz"
-                  ? "Kamerani QR-kodga qarating va toʻgʻridan-toʻgʻri telefoningizga yuklab oling."
-                  : "Наведите камеру на QR-код для быстрой загрузки приложения на телефон."}
+                  ? "Kamerani QR-kodga qarating va darhol ilovani telefoningizga oʻrnating."
+                  : "Наведите камеру на QR-код для быстрой установки приложения на телефон."}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Installation Instructions (Section 7.2) */}
+        {/* Instructions */}
         <div className="bg-surface rounded-[24px] border border-border p-6 sm:p-8 space-y-4 shadow-sm">
           <h3 className="font-bold text-base text-text">
-            {locale === "uz" ? "Oʻrnatish boʻyicha qoʻllanma" : "Инструкция по установке"}
+            {locale === "uz" ? "Telefoningizga qanday oʻrnatiladi?" : "Как установить приложение?"}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-text-secondary">
             <div className="p-4 rounded-[16px] bg-surface-muted/50 border border-border/60 space-y-2">
@@ -177,12 +209,12 @@ export default function AppPage() {
                 1
               </div>
               <h5 className="font-semibold text-text">
-                {locale === "uz" ? "APK faylni yuklang" : "Скачайте файл APK"}
+                {locale === "uz" ? "Tugmani bosing" : "Нажмите кнопку"}
               </h5>
               <p className="text-text-muted leading-relaxed">
                 {locale === "uz"
-                  ? "Tugmani bosib oʻrnatish faylini telefoningizga yuklab oling."
-                  : "Нажмите кнопку загрузки и сохраните установочный файл."}
+                  ? "Yuqoridagi «Telefonga oʻrnatish» tugmasini bosing."
+                  : "Нажмите «Установить на телефон» выше."}
               </p>
             </div>
 
@@ -191,12 +223,12 @@ export default function AppPage() {
                 2
               </div>
               <h5 className="font-semibold text-text">
-                {locale === "uz" ? "Ruxsat bering" : "Разрешите установку"}
+                {locale === "uz" ? "Tasdiqlang" : "Подтвердите"}
               </h5>
               <p className="text-text-muted leading-relaxed">
                 {locale === "uz"
-                  ? "«Noma'lum manbalardan oʻrnatishga ruxsat bering» oynasida ruxsatni yoqing."
-                  : "В настройках безопасности разрешите установку из этого источника."}
+                  ? "Ekranda chiqqan «Oʻrnatish» (Установить) oynasini tasdiqlang."
+                  : "В появившемся окне нажмите «Установить»."}
               </p>
             </div>
 
@@ -205,12 +237,12 @@ export default function AppPage() {
                 3
               </div>
               <h5 className="font-semibold text-text">
-                {locale === "uz" ? "Savdoni boshlang" : "Начните торговлю"}
+                {locale === "uz" ? "Ekrandan kiring" : "Открывайте с экрана"}
               </h5>
               <p className="text-text-muted leading-relaxed">
                 {locale === "uz"
-                  ? "Ilovani oching, login va parolingiz orqali tizimga kiring."
-                  : "Откройте приложение и авторизуйтесь с вашим логином и паролем."}
+                  ? "Telefoningiz ishchi stolida UzSavdo belgisi paydo boʻladi."
+                  : "Иконка UzSavdo появится на рабочем столе телефона как отдельное приложение."}
               </p>
             </div>
           </div>
