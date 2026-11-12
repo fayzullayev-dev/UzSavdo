@@ -4,6 +4,11 @@
   <b>Ўзбекистон Республикасининг миллий B2B электрон савдо ва давлат назорати платформаси</b><br>
   <i>Қишлоқ хўжалиги ва саноат маҳсулотларини сотиш, харид қилиш ва шаффоф шартномалар тизими</i>
 </p>
+<p align="center">
+  🌐 <b>Онлайн демо (Мижоз учун):</b> <a href="https://store-initial-burton-acquisitions.trycloudflare.com">https://store-initial-burton-acquisitions.trycloudflare.com</a><br>
+  🏛️ <b>Давлат мониторинг панели:</b> <a href="https://store-initial-burton-acquisitions.trycloudflare.com/admin">https://store-initial-burton-acquisitions.trycloudflare.com/admin</a><br>
+  🔗 <b>GitHub Репозиторий:</b> <a href="https://github.com/fayzullayev-dev/UzSavdo.git">https://github.com/fayzullayev-dev/UzSavdo.git</a>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-15.5-black?style=flat-square&logo=next.js" alt="Next.js" />
@@ -89,7 +94,19 @@
 
 ---
 
-## 📁 Демо Ҳисоблар ва Маълумотлар Базаси
+## 📁 Демо Ҳисоблар ва Кириш Маълумотлари (Demo Credentials)
+
+> [!NOTE]
+> ### 🔑 Тизимга кириш маълумотлари
+> 
+> * 👤 **Фойдаланувчи / Тадбиркор кабинети (Умумий кириш):**
+>   * **Логин:** `agro_sharq`
+>   * **Пароль:** `Demo12345`
+> 
+> * 🏛️ **Ҳокимият ва Давлат назорати (Admin бошқарув панели):**
+>   * **Манзил:** `/admin`
+>   * **Логин:** `admin`
+>   * **Пароль:** `AdminPassword2026!`
 
 Лойиҳа ичида қуйидаги тўлиқ реал маълумотлар тўплами олдиндан шакллантирилган:
 * **30 та асл фотосуратларга эга улгуржи маҳсулот эълонлари;**
