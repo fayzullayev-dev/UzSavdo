@@ -79,6 +79,7 @@ export default function AdminDashboardPage() {
 
   const [activeMenu, setActiveMenu] = useState<string>("dashboard");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [period, setPeriod] = useState<"today" | "7d" | "30d" | "month" | "year">("30d");
   const [selectedRegion, setSelectedRegion] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -394,67 +395,147 @@ export default function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans text-text antialiased">
       {/* 2.1 Admin Header */}
-      <header className="h-16 bg-surface border-b border-border sticky top-0 z-40 flex items-center justify-between px-3 sm:px-4 lg:px-8 shadow-xs">
-        <div className="flex items-center gap-2 sm:gap-4">
+      <header className="h-14 sm:h-16 bg-surface border-b border-border sticky top-0 z-40 flex items-center justify-between px-3 sm:px-4 lg:px-8 shadow-xs">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Mobile Admin Menu Burger */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-btn hover:bg-surface-muted text-text"
+            className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center text-text hover:bg-surface-muted active:scale-95"
             aria-label="Menyu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Shield className="w-5 h-5 text-primary" />}
           </button>
 
           <Link href="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-btn bg-primary text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-sm">
-              UZ
-            </div>
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-primary">UzSavdo</span>
+            <img
+              src="/logo-app-icon.png"
+              alt="UzSavdo"
+              className="w-9 h-9 rounded-[10px] object-cover shadow-sm shrink-0"
+            />
+            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-primary">UzSavdo</span>
           </Link>
-          <div className="h-5 w-px bg-border hidden sm:block" />
-          <span className="bg-primary/10 text-primary text-[11px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full border border-primary/20 truncate max-w-[130px] sm:max-w-none">
+          <div className="h-5 w-px bg-border hidden md:block" />
+          <span className="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full border border-primary/20 hidden md:inline-block">
             {locale === "uz" ? "Boshqaruv paneli" : "Панель управления"}
           </span>
         </div>
 
+        {/* Right Section: Desktop Full / Mobile Avatar Card Only */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Back to site (visible on BOTH mobile and desktop) */}
-          <Link
-            href="/"
-            className="flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-primary px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-btn border border-border hover:bg-surface-muted transition-colors shrink-0"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
-            <span className="sm:hidden">{locale === "uz" ? "Sayt" : "Сайт"}</span>
-          </Link>
+          {/* Desktop Controls (>= 1024px) */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-primary px-3 py-2 rounded-btn border border-border hover:bg-surface-muted transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
+            </Link>
 
-          {/* Lang toggle */}
-          <div className="flex items-center bg-surface-muted p-0.5 rounded-btn border border-border text-xs font-bold">
-            <button
-              onClick={() => setLocale("uz")}
-              className={`px-2 py-1 rounded-btn transition-colors cursor-pointer ${
-                locale === "uz" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
-              }`}
-            >
-              UZ
-            </button>
-            <button
-              onClick={() => setLocale("ru")}
-              className={`px-2 py-1 rounded-btn transition-colors cursor-pointer ${
-                locale === "ru" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
-              }`}
-            >
-              RU
-            </button>
+            <div className="flex items-center bg-surface-muted p-0.5 rounded-btn border border-border text-xs font-bold">
+              <button
+                onClick={() => setLocale("uz")}
+                className={`px-2.5 py-1 rounded-btn transition-colors cursor-pointer ${
+                  locale === "uz" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
+                }`}
+              >
+                UZ
+              </button>
+              <button
+                onClick={() => setLocale("ru")}
+                className={`px-2.5 py-1 rounded-btn transition-colors cursor-pointer ${
+                  locale === "ru" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
+                }`}
+              >
+                RU
+              </button>
+            </div>
           </div>
 
-          {/* Admin Avatar */}
-          <div className="flex items-center gap-2 pl-1 sm:pl-2">
-            <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs border border-primary/30">
+          {/* Unified Profile Avatar Button (Click opens full menu with Saytga qaytish, Lang, Logout) */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+              className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm border-2 border-primary/30 shadow-xs hover:bg-primary/30 active:scale-95 transition-all"
+              aria-label="Admin profili"
+            >
               A
-            </div>
-            <span className="text-xs font-bold text-text hidden md:inline">Admin Hokimiyat</span>
+            </button>
+
+            {/* Backdrop */}
+            {profileDropdownOpen && (
+              <div
+                className="fixed inset-0 bg-black/25 z-40"
+                onClick={() => setProfileDropdownOpen(false)}
+              />
+            )}
+
+            {/* Profile Menu Dropdown */}
+            {profileDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-[min(300px,calc(100vw-24px))] bg-surface border border-border rounded-[20px] shadow-2xl z-50 p-3 space-y-2.5 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="p-2 bg-surface-muted/50 rounded-[14px] flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                    A
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold text-xs text-text truncate">Admin Hokimiyat</p>
+                    <p className="text-[11px] text-text-muted truncate">admin@uzsavdo.uz</p>
+                  </div>
+                </div>
+
+                {/* Return to site button */}
+                <Link
+                  href="/"
+                  onClick={() => setProfileDropdownOpen(false)}
+                  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[12px] bg-primary/10 text-primary font-bold text-xs hover:bg-primary/20 transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>{locale === "uz" ? "Saytga qaytish" : "Вернуться на сайт"}</span>
+                </Link>
+
+                {/* Language Switch */}
+                <div className="px-3 py-1 flex items-center justify-between text-xs">
+                  <span className="text-text-muted font-medium">{locale === "uz" ? "Til" : "Язык"}</span>
+                  <div className="flex bg-surface-muted p-0.5 rounded-lg border border-border">
+                    <button
+                      type="button"
+                      onClick={() => setLocale("uz")}
+                      className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all ${
+                        locale === "uz" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
+                      }`}
+                    >
+                      UZ
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLocale("ru")}
+                      className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all ${
+                        locale === "ru" ? "bg-primary text-white shadow-xs" : "text-text-secondary"
+                      }`}
+                    >
+                      RU
+                    </button>
+                  </div>
+                </div>
+
+                <div className="h-px bg-border my-1" />
+
+                {/* Logout */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setProfileDropdownOpen(false);
+                    logout();
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[12px] text-xs font-semibold text-danger hover:bg-danger/10 text-left transition-colors"
+                >
+                  <LogOut className="w-4 h-4 text-danger" />
+                  <span>{t("nav.logout")}</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>

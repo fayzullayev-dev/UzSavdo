@@ -228,11 +228,13 @@ export const NavigationLayout: React.FC<{ children: React.ReactNode }> = ({ chil
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-btn bg-primary text-white flex items-center justify-center font-bold text-base lg:text-lg shadow-sm">
-              UZ
-            </div>
-            <span className="font-bold text-lg lg:text-xl tracking-tight text-primary">UzSavdo</span>
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+            <img
+              src="/logo-app-icon.png"
+              alt="UzSavdo"
+              className="w-8 h-8 lg:w-9 lg:h-9 rounded-[10px] object-cover shadow-sm"
+            />
+            <span className="font-extrabold text-lg lg:text-xl tracking-tight text-primary">UzSavdo</span>
           </Link>
         </div>
 
@@ -565,11 +567,13 @@ export const NavigationLayout: React.FC<{ children: React.ReactNode }> = ({ chil
           >
             {/* Header */}
             <div className="p-4 border-b border-border flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-btn bg-primary text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                  UZ
-                </div>
-                <span className="font-bold text-base text-primary">UzSavdo</span>
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="/logo-app-icon.png"
+                  alt="UzSavdo"
+                  className="w-8 h-8 rounded-[10px] object-cover shadow-sm"
+                />
+                <span className="font-extrabold text-base text-primary">UzSavdo</span>
               </div>
               <button
                 type="button"
