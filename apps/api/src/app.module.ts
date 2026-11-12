@@ -7,6 +7,7 @@ import { ListingsController } from './listings/listings.controller';
 import { OrdersContractsController } from './orders/orders.controller';
 import { DictionariesController } from './dictionaries.controller';
 import { ChatFavoritesController } from './chat/chat.controller';
+import { MobileSummaryController } from './mobile-summary.controller';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ChatFavoritesController } from './chat/chat.controller';
     OrdersContractsController,
     DictionariesController,
     ChatFavoritesController,
+    MobileSummaryController,
   ],
   providers: [PrismaService, JwtAuthGuard],
   exports: [PrismaService, JwtAuthGuard],

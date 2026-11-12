@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "UzSavdo",
+    "slug": "uzsavdo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "uzsavdo",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1F5F4A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "uz.uzsavdo.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Eʼlonlar uchun mahsulot rasmlarini suratga olish uchun kameradan foydalanishga ruxsat bering.",
+        "NSPhotoLibraryUsageDescription": "Eʼlonlar uchun mahsulot rasmlarini tanlash uchun galereyadan foydalanishga ruxsat bering."
+      }
+    },
+    "android": {
+      "package": "uz.uzsavdo.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#1F5F4A",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Eʼlonlar uchun fotosuratlarni tanlashga ruxsat bering.",
+          "cameraPermission": "Eʼlonlar uchun fotosuratga olishga ruxsat bering."
+        }
+      ]
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    }
+  }
+}
