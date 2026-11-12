@@ -5,8 +5,8 @@
   <i>Қишлоқ хўжалиги ва саноат маҳсулотларини сотиш, харид қилиш ва шаффоф шартномалар тизими</i>
 </p>
 <p align="center">
-  🌐 <b>Онлайн демо (Мижоз учун):</b> <a href="https://store-initial-burton-acquisitions.trycloudflare.com">https://store-initial-burton-acquisitions.trycloudflare.com</a><br>
-  🏛️ <b>Давлат мониторинг панели:</b> <a href="https://store-initial-burton-acquisitions.trycloudflare.com/admin">https://store-initial-burton-acquisitions.trycloudflare.com/admin</a><br>
+  🌐 <b>Онлайн демо (Мижоз учун):</b> <a href="https://ultimate-songs-acts-peas.trycloudflare.com">https://ultimate-songs-acts-peas.trycloudflare.com</a><br>
+  🏛️ <b>Давлат мониторинг панели:</b> <a href="https://ultimate-songs-acts-peas.trycloudflare.com/admin">https://ultimate-songs-acts-peas.trycloudflare.com/admin</a><br>
   🔗 <b>GitHub Репозиторий:</b> <a href="https://github.com/fayzullayev-dev/UzSavdo.git">https://github.com/fayzullayev-dev/UzSavdo.git</a>
 </p>
 
