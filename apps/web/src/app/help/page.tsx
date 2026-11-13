@@ -130,7 +130,7 @@ export default function HelpPage() {
         {/* Support Request Form */}
         <div className="bg-surface rounded-card border border-border p-6 shadow-xs">
           <h2 className="text-base font-bold text-text mb-4">
-            {locale === "uz" ? "Qoʻllab-quvvatlash xizmatiga murojaat qilish" : "Обращение в службу поддержки"}
+            {locale === "uz" ? "Qoʻllab-quvvatlash va takliflar uchun murojaat" : "Обращение в службу поддержки и предложения"}
           </h2>
           <form onSubmit={handleSendTicket} className="space-y-4">
             <div>

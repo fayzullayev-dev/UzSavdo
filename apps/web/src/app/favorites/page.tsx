@@ -1,23 +1,37 @@
 ﻿"use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useLanguage } from "../../lib/language";
+import { useAuth } from "../../lib/auth";
 import { apiFetch } from "../../lib/api";
 import { NavigationLayout } from "../../components/navigation";
 import { ListingCard } from "../../components/listing-card";
-import { Heart } from "lucide-react";
+import { Heart, LogIn } from "lucide-react";
 
 export default function FavoritesPage() {
   const { locale } = useLanguage();
+  const { user, loading: authLoading } = useAuth();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) return;
+
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     apiFetch("/favorites")
       .then((data) => setItems(data || []))
-      .catch(console.error)
+      .catch((err) => {
+        console.error("Favorites load error:", err);
+        setItems([]);
+      })
       .finally(() => setLoading(false));
-  }, []);
+  }, [user, authLoading]);
 
   return (
     <NavigationLayout>
@@ -31,9 +45,28 @@ export default function FavoritesPage() {
           </p>
         </div>
 
-        {loading ? (
+        {authLoading || loading ? (
           <div className="py-20 text-center">
             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          </div>
+        ) : !user ? (
+          <div className="bg-surface rounded-card border border-border p-12 text-center my-6 max-w-md mx-auto shadow-xs">
+            <Heart className="w-12 h-12 text-primary mx-auto mb-3 opacity-80" />
+            <h3 className="text-sm font-bold text-text mb-1">
+              {locale === "uz" ? "Tizimga kiring" : "Войдите в систему"}
+            </h3>
+            <p className="text-xs text-text-secondary mb-5 leading-relaxed">
+              {locale === "uz"
+                ? "Saralangan eʼlonlaringizni koʻrish va saqlab borish uchun hisobingizga kiring."
+                : "Чтобы просматривать и сохранять избранные товары, войдите в свой аккаунт."}
+            </p>
+            <Link
+              href="/auth"
+              className="inline-flex items-center justify-center gap-2 px-6 h-11 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm transition-colors"
+            >
+              <LogIn className="w-4 h-4" />
+              {locale === "uz" ? "Kirish" : "Войти"}
+            </Link>
           </div>
         ) : items.length === 0 ? (
           <div className="bg-surface rounded-card border border-border p-12 text-center my-6">
