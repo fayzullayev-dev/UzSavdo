@@ -3,17 +3,23 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../../lib/language";
+import { useAuth } from "../../lib/auth";
 import { apiFetch } from "../../lib/api";
 import { NavigationLayout } from "../../components/navigation";
-import { ClipboardList, Clock, Check, X, CheckCircle, AlertTriangle, MessageCircle } from "lucide-react";
+import { ClipboardList, Clock, Check, X, CheckCircle, AlertTriangle, MessageCircle, UserCog } from "lucide-react";
 import { toast } from "sonner";
 import { FormDialog } from "../../components/dialogs";
 
 export default function OrdersPage() {
   const { locale, t } = useLanguage();
   const router = useRouter();
+  const { loginAsSeller } = useAuth();
 
-  const [tab, setTab] = useState<"incoming" | "my">("incoming");
+  const [tab, setTab] = useState<"incoming" | "my">(() => {
+    if (typeof window === "undefined") return "incoming";
+    const fromUrl = new URLSearchParams(window.location.search).get("tab");
+    return fromUrl === "my" ? "my" : "incoming";
+  });
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [rejectOrderId, setRejectOrderId] = useState<string | null>(null);
@@ -210,14 +216,34 @@ export default function OrdersPage() {
                       )}
                     </p>
                   </div>
-                  <button
-                    onClick={() => openChat(o.contractId)}
-                    className="h-9 px-3 bg-primary-soft border border-primary/30 rounded-btn text-xs font-semibold text-primary hover:bg-primary/10 flex items-center gap-1.5 transition-colors shrink-0"
-                    title={locale === "uz" ? "Hamkorga yozish" : "Написать партнёру"}
-                  >
-                    <MessageCircle className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">{locale === "uz" ? "Yozish" : "Написать"}</span>
-                  </button>
+                  <div className="flex flex-col gap-2 shrink-0">
+                    <button
+                      onClick={() => openChat(o.contractId)}
+                      className="h-9 px-3 bg-primary-soft border border-primary/30 rounded-btn text-xs font-semibold text-primary hover:bg-primary/10 flex items-center gap-1.5 transition-colors"
+                      title={locale === "uz" ? "Hamkorga yozish" : "Написать партнёру"}
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">{locale === "uz" ? "Yozish" : "Написать"}</span>
+                    </button>
+                    {tab === "my" && o.status === "PENDING" && o.seller?.id && (
+                      <button
+                        onClick={() => {
+                          loginAsSeller(o.seller);
+                          setTab("incoming");
+                          toast.success(
+                            locale === "uz"
+                              ? `Demo: endi «${o.seller?.companyName}» nomidan koʻryapsiz`
+                              : `Демо: теперь вы смотрите от имени «${o.seller?.companyName}»`
+                          );
+                        }}
+                        className="h-9 px-3 bg-surface-muted border border-border rounded-btn text-xs font-semibold text-text-secondary hover:bg-border/40 flex items-center gap-1.5 transition-colors"
+                        title={locale === "uz" ? "Sotuvchi nomidan javob berish (demo)" : "Ответить от имени продавца (демо)"}
+                      >
+                        <UserCog className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">{locale === "uz" ? "Sotuvchi boʻlish" : "Стать продавцом"}</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Seller Actions if Pending */}

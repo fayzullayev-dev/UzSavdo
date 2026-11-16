@@ -482,8 +482,13 @@ export default function ListingDetailPage() {
                         try {
                           const conv = await apiFetch(`/conversations/by-listing/${listing.id}`);
                           router.push(conv?.id ? `/messages?conv=${conv.id}` : "/messages");
-                        } catch {
-                          router.push("/messages");
+                        } catch (err: any) {
+                          toast.error(
+                            err?.message ||
+                              (locale === "uz"
+                                ? "Suhbatni ochib boʻlmadi"
+                                : "Не удалось открыть чат")
+                          );
                         }
                       }}
                       className="w-full h-9 bg-primary-soft border border-primary/30 text-primary font-semibold text-xs rounded-btn flex items-center justify-center gap-2 hover:bg-primary/10 transition-colors"

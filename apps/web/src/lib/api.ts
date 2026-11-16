@@ -1,4 +1,5 @@
 ﻿import mockData from "./mock-data.json";
+import * as demoStore from "./demoStore";
 
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -26,6 +27,15 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   const cleanEndpoint = endpoint.split("?")[0];
   const queryStr = endpoint.includes("?") ? endpoint.split("?")[1] : "";
   const query = new URLSearchParams(queryStr);
+  const method = (options.method || "GET").toUpperCase();
+  const parseBody = (): any => {
+    if (!options.body) return {};
+    try {
+      return typeof options.body === "string" ? JSON.parse(options.body) : options.body;
+    } catch {
+      return {};
+    }
+  };
 
   if (cleanEndpoint === "/categories") {
     return mockData.categories;
@@ -77,87 +87,67 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
     return mockData.listings[0];
   }
 
-  if (cleanEndpoint === "/orders") {
-    return [
-      {
-        id: "ord-1",
-        quantity: 500,
-        status: "PENDING",
-        createdAt: new Date().toISOString(),
-        contract: {
-          number: "SH-2026-000142",
-          listing: mockData.listings[0]
-        },
-        buyer: {
-          companyName: "Toshkent Savdo MCHJ",
-          firstName: "Jamshid"
-        }
-      }
-    ];
+  if (cleanEndpoint === "/favorites") {
+    return demoStore.getFavorites();
+  }
+  const favoriteMatch = cleanEndpoint.match(/^\/favorites\/(.+)$/);
+  if (favoriteMatch) {
+    return method === "DELETE"
+      ? demoStore.removeFavorite(favoriteMatch[1])
+      : demoStore.addFavorite(favoriteMatch[1]);
   }
 
   if (cleanEndpoint === "/contracts") {
-    return [
-      {
-        id: "cnt-1",
-        number: "SH-2026-000142",
-        status: "PAID",
-        createdAt: new Date().toISOString(),
-        listing: mockData.listings[0],
-        seller: { companyName: "Sharq Agro Fayz MCHJ" },
-        buyer: { companyName: "Toshkent Savdo MCHJ" }
-      }
-    ];
+    if (method === "POST") {
+      return demoStore.createContract(parseBody());
+    }
+    return demoStore.getContracts((query.get("role") as "buyer" | "seller") || "buyer");
+  }
+
+  if (cleanEndpoint === "/orders") {
+    if (method === "POST") {
+      return demoStore.createOrderFromContract(parseBody());
+    }
+    return demoStore.getOrders((query.get("role") as "buyer" | "seller") || "seller");
+  }
+
+  const orderActionMatch = cleanEndpoint.match(/^\/orders\/([^/]+)\/(accept|reject|complete)$/);
+  if (orderActionMatch) {
+    const [, orderId, action] = orderActionMatch;
+    if (action === "accept") return demoStore.acceptOrder(orderId);
+    if (action === "reject") return demoStore.rejectOrder(orderId, parseBody().reason);
+    return demoStore.completeOrder(orderId);
   }
 
   if (cleanEndpoint === "/conversations") {
-    return [
-      {
-        id: "conv-1",
-        lastMessageAt: new Date().toISOString(),
-        contract: { listing: mockData.listings[0] },
-        buyer: { companyName: "Toshkent Savdo MCHJ" },
-        seller: { companyName: "Sharq Agro Fayz MCHJ" }
-      }
-    ];
+    return demoStore.getConversations();
   }
 
-  if (cleanEndpoint.includes("/messages")) {
-    if (options.method === "POST") {
-      let bodyText = "";
-      try {
-        const bodyObj = typeof options.body === "string" ? JSON.parse(options.body) : options.body;
-        bodyText = bodyObj?.text || "";
-      } catch {
-        bodyText = "";
-      }
-      return {
-        id: `msg-${Date.now()}`,
-        text: bodyText || "Xabar yuborildi",
-        senderId: "demo-id",
-        createdAt: new Date().toISOString()
-      };
-    }
+  const byContractMatch = cleanEndpoint.match(/^\/conversations\/by-contract\/(.+)$/);
+  if (byContractMatch) {
+    return demoStore.getOrCreateConversationByContract(byContractMatch[1]);
+  }
 
-    return [
-      {
-        id: "msg-1",
-        text: "Assalomu alaykum! Mahsulot buyurtmangiz tayyor, qachon yetkazib beraylik?",
-        senderId: "seller-1",
-        createdAt: new Date().toISOString()
-      }
-    ];
+  const byListingMatch = cleanEndpoint.match(/^\/conversations\/by-listing\/(.+)$/);
+  if (byListingMatch) {
+    return demoStore.getOrCreateConversationByListing(byListingMatch[1]);
+  }
+
+  const messagesMatch = cleanEndpoint.match(/^\/conversations\/([^/]+)\/messages$/);
+  if (messagesMatch) {
+    const conversationId = messagesMatch[1];
+    if (method === "POST") {
+      return demoStore.sendMessage(conversationId, parseBody().text || "");
+    }
+    return demoStore.getMessages(conversationId);
   }
 
   if (cleanEndpoint === "/notifications") {
-    return [
-      {
-        id: "notif-1",
-        link: "/orders",
-        createdAt: new Date().toISOString(),
-        readAt: null
-      }
-    ];
+    return demoStore.getNotifications();
+  }
+
+  if (cleanEndpoint === "/notifications/read-all") {
+    return demoStore.markAllNotificationsRead();
   }
 
   if (cleanEndpoint === "/auth/login") {

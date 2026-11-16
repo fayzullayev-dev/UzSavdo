@@ -207,7 +207,7 @@ export default function MessagesPage() {
                   </div>
                 ) : (
                   messages.map((m) => {
-                    const isMine = m.senderId === user?.id || m.senderId === "demo-id";
+                    const isMine = m.senderId === user?.id;
                     const formattedTime = (() => {
                       try {
                         const d = m.createdAt ? new Date(m.createdAt) : new Date();

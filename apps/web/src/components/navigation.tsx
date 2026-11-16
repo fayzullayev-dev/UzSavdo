@@ -37,7 +37,7 @@ import { ConfirmDialog } from "./dialogs";
 
 export const NavigationLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { locale, setLocale, t } = useLanguage();
-  const { user, logout } = useAuth();
+  const { user, logout, isSwitchedIdentity, returnToDefaultIdentity } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -732,6 +732,25 @@ export const NavigationLayout: React.FC<{ children: React.ReactNode }> = ({ chil
 
         {/* Full-width Responsive Content Area */}
         <main className="flex-1 lg:ml-[260px] w-full px-4 sm:px-6 lg:px-8 2xl:px-12 py-5 max-w-[1760px] pb-28 lg:pb-8 mx-auto">
+          {isSwitchedIdentity && (
+            <div className="mb-4 rounded-btn border border-warning/30 bg-warning/10 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-warning">
+              <span>
+                {locale === "uz"
+                  ? `Demo rejimi: hozir «${user?.companyName}» nomidan koʻryapsiz`
+                  : `Демо-режим: вы сейчас смотрите от имени «${user?.companyName}»`}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  returnToDefaultIdentity();
+                  router.push("/orders");
+                }}
+                className="underline underline-offset-2 hover:no-underline shrink-0"
+              >
+                {locale === "uz" ? "Xaridorga qaytish" : "Вернуться к покупателю"}
+              </button>
+            </div>
+          )}
           {children}
         </main>
       </div>

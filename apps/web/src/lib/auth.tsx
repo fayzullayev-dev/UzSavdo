@@ -21,7 +21,12 @@ interface AuthContextType {
   login: (userData: User) => void;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  loginAsSeller: (sellerProfile: User) => void;
+  returnToDefaultIdentity: () => void;
+  isSwitchedIdentity: boolean;
 }
+
+const DEMO_SWITCHED_KEY = "uzsavdo_demo_switched";
 
 const defaultAdminUser: User = {
   id: "admin-id",
@@ -52,7 +57,10 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
   login: () => {},
   logout: async () => {},
-  refreshUser: async () => {}
+  refreshUser: async () => {},
+  loginAsSeller: () => {},
+  returnToDefaultIdentity: () => {},
+  isSwitchedIdentity: false
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -75,6 +83,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [loading, setLoading] = useState(false);
+  const [isSwitchedIdentity, setIsSwitchedIdentity] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem(DEMO_SWITCHED_KEY) === "true";
+  });
 
   const refreshUser = async () => {
     if (typeof window !== "undefined" && localStorage.getItem("uzsavdo_logged_out") === "true") {
@@ -97,13 +109,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshUser();
   }, []);
 
-  const login = (userData: User) => {
+  const applyIdentity = (userData: User, switched: boolean) => {
     setUser(userData);
+    setIsSwitchedIdentity(switched);
     if (typeof window !== "undefined") {
       localStorage.removeItem("uzsavdo_logged_out");
       localStorage.setItem("uzsavdo_user", JSON.stringify(userData));
+      if (switched) {
+        localStorage.setItem(DEMO_SWITCHED_KEY, "true");
+      } else {
+        localStorage.removeItem(DEMO_SWITCHED_KEY);
+      }
     }
   };
+
+  const login = (userData: User) => applyIdentity(userData, false);
+
+  const loginAsSeller = (sellerProfile: User) => applyIdentity(sellerProfile, true);
+
+  const returnToDefaultIdentity = () => applyIdentity(defaultDemoUser, false);
 
   const logout = async () => {
     try {
@@ -112,13 +136,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (typeof window !== "undefined") {
       localStorage.setItem("uzsavdo_logged_out", "true");
       localStorage.removeItem("uzsavdo_user");
+      localStorage.removeItem(DEMO_SWITCHED_KEY);
     }
     setUser(null);
+    setIsSwitchedIdentity(false);
     window.location.href = "/auth";
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, refreshUser }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, logout, refreshUser, loginAsSeller, returnToDefaultIdentity, isSwitchedIdentity }}
+    >
       {children}
     </AuthContext.Provider>
   );
