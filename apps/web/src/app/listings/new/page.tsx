@@ -1,21 +1,81 @@
 ﻿"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../../../lib/language";
 import { apiFetch } from "../../../lib/api";
 import { NavigationLayout } from "../../../components/navigation";
-import { Send, UploadCloud, Info } from "lucide-react";
+import { Send, UploadCloud, Image as ImageIcon, X, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+
+const DEFAULT_FALLBACK_IMAGE = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=80";
+
+// Helper function: compress image on client-side to keep under 2MB
+async function compressImageTo2MB(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        // Calculate scaled dimensions if very large
+        let width = img.width;
+        let height = img.height;
+        const maxDim = 1920;
+
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          resolve(reader.result as string);
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress starting at 0.88 quality
+        let quality = 0.88;
+        let dataUrl = canvas.toDataURL("image/jpeg", quality);
+
+        // Approximate base64 size: (length * 3/4)
+        // If > 2MB (2 * 1024 * 1024 = 2,097,152 bytes) reduce quality
+        const maxBytes = 2 * 1024 * 1024;
+        while (dataUrl.length * 0.75 > maxBytes && quality > 0.4) {
+          quality -= 0.1;
+          dataUrl = canvas.toDataURL("image/jpeg", quality);
+        }
+
+        resolve(dataUrl);
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function NewListingPage() {
   const { locale, t } = useLanguage();
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [categories, setCategories] = useState<any[]>([]);
   const [regions, setRegions] = useState<any[]>([]);
   const [selectedCat, setSelectedCat] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const [form, setForm] = useState({
     categoryId: "",
@@ -31,7 +91,7 @@ export default function NewListingPage() {
     regionId: "",
     districtId: "",
     description: "",
-    images: ["https://placehold.co/800x600/1F5F4A/ffffff?text=Yangi+Mahsulot"]
+    images: [] as string[]
   });
 
   useEffect(() => {
@@ -68,19 +128,78 @@ export default function NewListingPage() {
     }));
   };
 
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    if (uploadedImages.length + files.length > 5) {
+      toast.error(
+        locale === "uz"
+          ? "Koʻpi bilan 5 tagacha rasm yuklash mumkin"
+          : "Можно загрузить не более 5 фотографий"
+      );
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const newImages: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!file.type.startsWith("image/")) continue;
+        const compressedBase64 = await compressImageTo2MB(file);
+        newImages.push(compressedBase64);
+      }
+      setUploadedImages((prev) => [...prev, ...newImages].slice(0, 5));
+      toast.success(
+        locale === "uz"
+          ? "Rasm muvaffaqiyatli yuklandi va hajmi 2MB ga moslashtirildi!"
+          : "Фото успешно загружено и сжато до 2МБ!"
+      );
+    } catch (err) {
+      console.error("Image compression error:", err);
+      toast.error(
+        locale === "uz"
+          ? "Rasmni yuklashda xatolik yuz berdi"
+          : "Ошибка при загрузке фото"
+      );
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setUploadedImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      const finalImages =
+        uploadedImages.length > 0 ? uploadedImages : [DEFAULT_FALLBACK_IMAGE];
+
       const res = await apiFetch("/listings", {
         method: "POST",
-        body: JSON.stringify(form)
+        body: JSON.stringify({
+          ...form,
+          images: finalImages
+        })
       });
-      toast.success(locale === "uz" ? "Eʼlon muvaffaqiyatli joylashtirildi!" : "Объявление успешно размещено!");
+      toast.success(
+        locale === "uz"
+          ? "Eʼlon muvaffaqiyatli joylashtirildi!"
+          : "Объявление успешно размещено!"
+      );
       router.push(`/listings/${res.id}`);
     } catch (err: any) {
-      toast.error(err.message || (locale === "uz" ? "Xatolik yuz berdi" : "Произошла ошибка"));
+      toast.error(
+        err.message || (locale === "uz" ? "Xatolik yuz berdi" : "Произошла ошибка")
+      );
     } finally {
       setLoading(false);
     }
@@ -147,16 +266,89 @@ export default function NewListingPage() {
                 required
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                placeholder="Masalan: Saralangan sifatli kartoshka, 2026-yil hosili"
+                placeholder={locale === "uz" ? "Masalan: Saralangan sifatli kartoshka, 2026-yil hosili" : "Например: Картофель отборный, урожай 2026"}
                 className="w-full h-11 px-3 rounded-btn bg-surface-muted border border-border text-sm focus:outline-none text-text"
               />
             </div>
           </div>
 
-          {/* Section 2: Price & Quantity */}
+          {/* Section 2: Photo upload with automatic 2MB compression */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-center justify-between border-b border-border pb-2">
+              <h3 className="font-bold text-sm text-text uppercase tracking-wider">
+                2. {locale === "uz" ? "Mahsulot rasmlari" : "Фотографии товара"}
+              </h3>
+              <span className="text-xs text-text-muted">
+                {locale === "uz" ? "(Avtomatik 2MB gacha siqiladi)" : "(Автоматическое сжатие до 2МБ)"}
+              </span>
+            </div>
+
+            {/* Hidden native file input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              accept="image/*"
+              multiple
+              className="hidden"
+            />
+
+            {/* Drop / Click Upload Area */}
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              className="border-2 border-dashed border-border hover:border-primary rounded-card p-6 text-center cursor-pointer transition-colors bg-surface-muted/40 hover:bg-surface-muted flex flex-col items-center justify-center gap-2 group"
+            >
+              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+                <UploadCloud className="w-6 h-6" />
+              </div>
+              <p className="text-sm font-semibold text-text">
+                {locale === "uz"
+                  ? "Rasm yuklash uchun bu yerni bosing"
+                  : "Нажмите сюда, чтобы загрузить фото товара"}
+              </p>
+              <p className="text-xs text-text-secondary max-w-sm">
+                {locale === "uz"
+                  ? "PNG, JPG, WEBP. Rasm hajmi qancha boʻlishidan qatʼi nazar sayt avtomatik tarzda 2MB gacha ixchamlashtiradi."
+                  : "PNG, JPG, WEBP. Независимо от размера исходного файла, сайт автоматически оптимизирует его до 2МБ."}
+              </p>
+            </div>
+
+            {/* Uploaded images preview gallery */}
+            {uploadedImages.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+                {uploadedImages.map((img, idx) => (
+                  <div key={idx} className="relative group rounded-card overflow-hidden border border-border aspect-square bg-surface-muted">
+                    <img
+                      src={img}
+                      alt={`Mahsulot ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveImage(idx);
+                      }}
+                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 hover:bg-danger text-white flex items-center justify-center transition-colors shadow-xs"
+                      title={locale === "uz" ? "Oʻchirish" : "Удалить"}
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                    {idx === 0 && (
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded text-[10px] bg-primary text-white font-semibold">
+                        {locale === "uz" ? "Asosiy" : "Главное"}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Section 3: Price & Quantity */}
           <div className="space-y-4 pt-2">
             <h3 className="font-bold text-sm text-text uppercase tracking-wider border-b border-border pb-2">
-              2. {locale === "uz" ? "Narx va miqdor" : "Цена и количество"}
+              3. {locale === "uz" ? "Narx va miqdor" : "Цена и количество"}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -208,10 +400,10 @@ export default function NewListingPage() {
             </div>
           </div>
 
-          {/* Section 3: Region & Delivery */}
+          {/* Section 4: Region & Delivery */}
           <div className="space-y-4 pt-2">
             <h3 className="font-bold text-sm text-text uppercase tracking-wider border-b border-border pb-2">
-              3. {locale === "uz" ? "Hudud va yetkazib berish" : "Регион и доставка"}
+              4. {locale === "uz" ? "Hudud va yetkazib berish" : "Регион и доставка"}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -281,8 +473,8 @@ export default function NewListingPage() {
             </button>
             <button
               type="submit"
-              disabled={loading}
-              className="flex-1 h-12 bg-accent text-white font-bold rounded-btn hover:bg-accent-hover flex items-center justify-center gap-2 shadow-md transition-all text-sm"
+              disabled={loading || uploadingImage}
+              className="flex-1 h-12 bg-accent text-white font-bold rounded-btn hover:bg-accent-hover flex items-center justify-center gap-2 shadow-md transition-all text-sm disabled:opacity-50"
             >
               <Send className="w-4 h-4" />
               {loading ? "..." : locale === "uz" ? "Eʼlonni joylashtirish" : "Разместить объявление"}

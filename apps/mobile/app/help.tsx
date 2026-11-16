@@ -45,10 +45,10 @@ export default function HelpScreen() {
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.supportBox}>
           <Text style={styles.supportTitle}>
-            {locale === 'uz' ? 'Qoʻllab-quvvatlash xizmati' : 'Служба поддержки'}
+            {locale === 'uz' ? 'Qoʻllab-quvvatlash va takliflar uchun murojaat' : 'Обращение в службу поддержки и предложения'}
           </Text>
           <Text style={styles.supportDesc}>
-            {locale === 'uz' ? 'Savollaringiz bormi? Mutaxassislarimiz yordam berishga tayyor.' : 'Возникли вопросы? Наши специалисты готовы помочь.'}
+            {locale === 'uz' ? 'Savollaringiz yoki takliflaringiz bormi? Mutaxassislarimiz yordam berishga tayyor.' : 'Возникли вопросы или предложения? Наши специалисты готовы помочь.'}
           </Text>
           <View style={styles.supportBtns}>
             <TouchableOpacity style={styles.callBtn}>
