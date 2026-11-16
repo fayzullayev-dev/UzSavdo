@@ -1,4 +1,4 @@
-﻿import { Controller, Get, Post, Delete, Body, Param, Req, UseGuards, NotFoundException } from '@nestjs/common';
+﻿import { Controller, Get, Post, Delete, Body, Param, Req, UseGuards, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -74,6 +74,51 @@ export class ChatFavoritesController {
           orderBy: { createdAt: 'desc' },
           take: 1
         }
+      }
+    });
+  }
+
+  @Get('conversations/by-contract/:contractId')
+  async getOrCreateConversationByContract(@Param('contractId') contractId: string, @Req() req: any) {
+    const contract = await this.prisma.contract.findUnique({ where: { id: contractId } });
+    if (!contract) throw new NotFoundException('Shartnoma topilmadi');
+    if (contract.buyerId !== req.user.sub && contract.sellerId !== req.user.sub) {
+      throw new ForbiddenException('Ruxsat berilmagan');
+    }
+
+    return this.prisma.conversation.upsert({
+      where: { contractId },
+      update: {},
+      create: {
+        contractId,
+        buyerId: contract.buyerId,
+        sellerId: contract.sellerId
+      }
+    });
+  }
+
+  @Get('conversations/by-listing/:listingId')
+  async getOrCreateConversationByListing(@Param('listingId') listingId: string, @Req() req: any) {
+    const userId = req.user.sub;
+    const contract = await this.prisma.contract.findFirst({
+      where: {
+        listingId,
+        OR: [{ buyerId: userId }, { sellerId: userId }]
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!contract) {
+      throw new NotFoundException('Bu mahsulot boʻyicha shartnoma topilmadi');
+    }
+
+    return this.prisma.conversation.upsert({
+      where: { contractId: contract.id },
+      update: {},
+      create: {
+        contractId: contract.id,
+        buyerId: contract.buyerId,
+        sellerId: contract.sellerId
       }
     });
   }

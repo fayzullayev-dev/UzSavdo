@@ -80,8 +80,7 @@ export default function FavoritesPage() {
             {items.map((item) => (
               <ListingCard
                 key={item.id}
-                item={item}
-                isFavorite={true}
+                item={{ ...item, isFavorite: true }}
                 onFavoriteToggle={(id, isFav) => {
                   if (!isFav) setItems((prev) => prev.filter((i) => i.id !== id));
                 }}

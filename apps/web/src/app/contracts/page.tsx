@@ -1,14 +1,16 @@
 ﻿"use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLanguage } from "../../lib/language";
 import { apiFetch } from "../../lib/api";
 import { NavigationLayout } from "../../components/navigation";
-import { FileText, Download, QrCode } from "lucide-react";
+import { FileText, Download, QrCode, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export default function ContractsPage() {
   const { locale, t } = useLanguage();
+  const router = useRouter();
   const [tab, setTab] = useState<"buyer" | "seller">("buyer");
   const [contracts, setContracts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +22,15 @@ export default function ContractsPage() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [tab]);
+
+  const openChat = async (contractId: string) => {
+    try {
+      const conv = await apiFetch(`/conversations/by-contract/${contractId}`);
+      router.push(conv?.id ? `/messages?conv=${conv.id}` : "/messages");
+    } catch {
+      router.push("/messages");
+    }
+  };
 
   const downloadPdf = (c: any) => {
     toast.success(
@@ -98,6 +109,14 @@ export default function ContractsPage() {
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => openChat(c.id)}
+                    className="h-10 px-3 bg-primary-soft border border-primary/30 rounded-btn text-xs font-semibold text-primary hover:bg-primary/10 flex items-center gap-1.5 transition-colors"
+                    title={locale === "uz" ? "Hamkorga yozish" : "Написать партнёру"}
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    {locale === "uz" ? "Yozish" : "Написать"}
+                  </button>
                   <button
                     onClick={() => downloadPdf(c)}
                     className="h-10 px-3 bg-surface-muted border border-border rounded-btn text-xs font-semibold text-text hover:bg-border/40 flex items-center gap-1.5 transition-colors"

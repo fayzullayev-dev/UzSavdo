@@ -83,6 +83,15 @@ export class OrdersContractsController {
       });
     }
 
+    // Open a real chat between this buyer and this exact seller for this deal
+    await this.prisma.conversation.create({
+      data: {
+        contractId: contract.id,
+        buyerId,
+        sellerId: listing.sellerId
+      }
+    });
+
     return contract;
   }
 

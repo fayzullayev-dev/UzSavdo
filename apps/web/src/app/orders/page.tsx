@@ -1,15 +1,17 @@
 ﻿"use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLanguage } from "../../lib/language";
 import { apiFetch } from "../../lib/api";
 import { NavigationLayout } from "../../components/navigation";
-import { ClipboardList, Clock, Check, X, CheckCircle, AlertTriangle } from "lucide-react";
+import { ClipboardList, Clock, Check, X, CheckCircle, AlertTriangle, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { FormDialog } from "../../components/dialogs";
 
 export default function OrdersPage() {
   const { locale, t } = useLanguage();
+  const router = useRouter();
 
   const [tab, setTab] = useState<"incoming" | "my">("incoming");
   const [orders, setOrders] = useState<any[]>([]);
@@ -57,6 +59,19 @@ export default function OrdersPage() {
       toast.error(err.message || (locale === "uz" ? "Xatolik yuz berdi" : "Произошла ошибка"));
     } finally {
       setRejectLoading(false);
+    }
+  };
+
+  const openChat = async (contractId: string) => {
+    if (!contractId) {
+      router.push("/messages");
+      return;
+    }
+    try {
+      const conv = await apiFetch(`/conversations/by-contract/${contractId}`);
+      router.push(conv?.id ? `/messages?conv=${conv.id}` : "/messages");
+    } catch {
+      router.push("/messages");
     }
   };
 
@@ -195,6 +210,14 @@ export default function OrdersPage() {
                       )}
                     </p>
                   </div>
+                  <button
+                    onClick={() => openChat(o.contractId)}
+                    className="h-9 px-3 bg-primary-soft border border-primary/30 rounded-btn text-xs font-semibold text-primary hover:bg-primary/10 flex items-center gap-1.5 transition-colors shrink-0"
+                    title={locale === "uz" ? "Hamkorga yozish" : "Написать партнёру"}
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{locale === "uz" ? "Yozish" : "Написать"}</span>
+                  </button>
                 </div>
 
                 {/* Seller Actions if Pending */}

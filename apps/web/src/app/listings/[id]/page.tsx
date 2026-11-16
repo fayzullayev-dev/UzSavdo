@@ -468,7 +468,7 @@ export default function ListingDetailPage() {
                 </div>
 
                 {listing.showPhone && listing.seller?.phone && (
-                  <div className="pt-2">
+                  <div className="pt-2 space-y-2">
                     <a
                       href={`tel:${listing.seller.phone}`}
                       className="w-full h-9 bg-surface border border-border text-text font-semibold text-xs rounded-btn flex items-center justify-center gap-2 hover:bg-surface-muted transition-colors"
@@ -476,6 +476,21 @@ export default function ListingDetailPage() {
                       <Phone className="w-3.5 h-3.5 text-primary" />
                       <span>{listing.seller.phone}</span>
                     </a>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const conv = await apiFetch(`/conversations/by-listing/${listing.id}`);
+                          router.push(conv?.id ? `/messages?conv=${conv.id}` : "/messages");
+                        } catch {
+                          router.push("/messages");
+                        }
+                      }}
+                      className="w-full h-9 bg-primary-soft border border-primary/30 text-primary font-semibold text-xs rounded-btn flex items-center justify-center gap-2 hover:bg-primary/10 transition-colors"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>{locale === "uz" ? "Sotuvchiga yozish" : "Написать продавцу"}</span>
+                    </button>
                   </div>
                 )}
               </div>

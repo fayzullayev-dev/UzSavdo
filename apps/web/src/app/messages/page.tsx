@@ -24,9 +24,21 @@ export default function MessagesPage() {
     apiFetch("/conversations")
       .then((data) => {
         setConversations(data || []);
-        if (data && data.length > 0 && typeof window !== "undefined" && window.innerWidth >= 1024) {
-          setSelectedConv(data[0]);
-          loadMessages(data[0].id);
+        if (data && data.length > 0) {
+          const convId =
+            typeof window !== "undefined"
+              ? new URLSearchParams(window.location.search).get("conv")
+              : null;
+          const target = convId ? data.find((c: any) => c.id === convId) : null;
+
+          if (target) {
+            setSelectedConv(target);
+            loadMessages(target.id);
+            setMobileView("chat");
+          } else if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+            setSelectedConv(data[0]);
+            loadMessages(data[0].id);
+          }
         }
       })
       .catch(console.error)
