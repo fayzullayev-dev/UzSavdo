@@ -123,6 +123,22 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   }
 
   if (cleanEndpoint.includes("/messages")) {
+    if (options.method === "POST") {
+      let bodyText = "";
+      try {
+        const bodyObj = typeof options.body === "string" ? JSON.parse(options.body) : options.body;
+        bodyText = bodyObj?.text || "";
+      } catch {
+        bodyText = "";
+      }
+      return {
+        id: `msg-${Date.now()}`,
+        text: bodyText || "Xabar yuborildi",
+        senderId: "demo-id",
+        createdAt: new Date().toISOString()
+      };
+    }
+
     return [
       {
         id: "msg-1",

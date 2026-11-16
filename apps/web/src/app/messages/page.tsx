@@ -56,8 +56,31 @@ export default function MessagesPage() {
         method: "POST",
         body: JSON.stringify({ text: textToSend })
       });
-      setMessages((prev) => [...prev, newMsg]);
-    } catch {}
+
+      if (newMsg && typeof newMsg === "object" && newMsg.text) {
+        setMessages((prev) => [...prev, newMsg]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `msg-${Date.now()}`,
+            text: textToSend,
+            senderId: user?.id || "demo-id",
+            createdAt: new Date().toISOString()
+          }
+        ]);
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `msg-${Date.now()}`,
+          text: textToSend,
+          senderId: user?.id || "demo-id",
+          createdAt: new Date().toISOString()
+        }
+      ]);
+    }
   };
 
   const selectedOther = selectedConv
@@ -172,10 +195,20 @@ export default function MessagesPage() {
                   </div>
                 ) : (
                   messages.map((m) => {
-                    const isMine = m.senderId === user?.id;
+                    const isMine = m.senderId === user?.id || m.senderId === "demo-id";
+                    const formattedTime = (() => {
+                      try {
+                        const d = m.createdAt ? new Date(m.createdAt) : new Date();
+                        if (isNaN(d.getTime())) return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                        return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                      } catch {
+                        return "";
+                      }
+                    })();
+
                     return (
                       <div
-                        key={m.id}
+                        key={m.id || Math.random().toString()}
                         className={`flex ${isMine ? "justify-end" : "justify-start"}`}
                       >
                         <div
@@ -191,10 +224,7 @@ export default function MessagesPage() {
                               isMine ? "text-white/75" : "text-text-muted"
                             }`}
                           >
-                            {new Date(m.createdAt).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit"
-                            })}
+                            {formattedTime}
                           </span>
                         </div>
                       </div>
