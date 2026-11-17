@@ -1,17 +1,21 @@
 ﻿"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../lib/language";
 import { useAuth } from "../../lib/auth";
 import { NavigationLayout } from "../../components/navigation";
-import { User, Building2, Phone, MapPin, Mail, Lock, Shield, Check } from "lucide-react";
+import { User, Building2, Phone, MapPin, Mail, Lock, Shield, Check, UserCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
   const { locale } = useLanguage();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
 
-  const [tab, setTab] = useState<"info" | "security">("info");
+  const [tab, setTab] = useState<"info" | "security">(() => {
+    if (typeof window === "undefined") return "info";
+    const fromUrl = new URLSearchParams(window.location.search).get("tab");
+    return fromUrl === "security" || fromUrl === "settings" ? "security" : "info";
+  });
   const [form, setForm] = useState({
     companyName: user?.companyName || "«Sharq Agro Fayz» MChJ",
     firstName: user?.firstName || "Alisher",
@@ -21,6 +25,24 @@ export default function ProfilePage() {
     address: "Navoiy koʻchasi, 45-uy",
     telegram: "@sharq_agro"
   });
+
+  const [newLogin, setNewLogin] = useState(user?.login || "");
+
+  useEffect(() => {
+    setNewLogin(user?.login || "");
+  }, [user?.login]);
+
+  const handleChangeLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = newLogin.trim();
+    if (!trimmed) return;
+    if (user) {
+      login({ ...user, login: trimmed });
+    }
+    toast.success(
+      locale === "uz" ? "Login muvaffaqiyatli oʻzgartirildi!" : "Логин успешно изменён!"
+    );
+  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,6 +170,32 @@ export default function ProfilePage() {
           </form>
         ) : (
           <div className="bg-surface rounded-card border border-border p-6 sm:p-8 space-y-6 shadow-xs">
+            <form onSubmit={handleChangeLogin} className="pb-6 border-b border-border">
+              <h3 className="font-bold text-sm text-text mb-3">
+                {locale === "uz" ? "Loginni oʻzgartirish" : "Смена логина"}
+              </h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-semibold text-text-secondary block mb-1">
+                    {locale === "uz" ? "Yangi login" : "Новый логин"}
+                  </label>
+                  <input
+                    type="text"
+                    value={newLogin}
+                    onChange={(e) => setNewLogin(e.target.value)}
+                    placeholder={locale === "uz" ? "Masalan: agro_sharq" : "Например: agro_sharq"}
+                    className="w-full h-11 px-3 rounded-btn bg-surface-muted border border-border text-xs focus:outline-none focus:border-primary text-text"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="h-10 px-5 bg-primary text-white font-semibold text-xs rounded-btn hover:bg-primary-hover mt-1 cursor-pointer"
+                >
+                  {locale === "uz" ? "Loginni yangilash" : "Обновить логин"}
+                </button>
+              </div>
+            </form>
+
             <div>
               <h3 className="font-bold text-sm text-text mb-3">
                 {locale === "uz" ? "Parolni oʻzgartirish" : "Смена пароля"}

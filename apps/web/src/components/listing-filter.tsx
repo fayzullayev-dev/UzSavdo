@@ -851,36 +851,81 @@ export const ListingFilter: React.FC<FilterProps> = ({ onApply, initialFilters =
             </button>
 
             {catOpen && (
-              <div className="absolute left-0 mt-2 w-64 bg-surface border border-border rounded-card shadow-xl z-50 p-2 divide-y divide-border/60">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedCategory(null);
-                    setSelectedProduct(null);
-                    setCatOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => { setCatOpen(false); setHoveredCat(null); }} />
+                <div
+                  className="absolute left-0 mt-2 bg-surface border border-border rounded-card shadow-xl z-50 flex"
+                  onMouseLeave={() => setHoveredCat(null)}
                 >
-                  {locale === "uz" ? "Barcha kategoriyalar" : "Все категории"}
-                </button>
-                <div className="max-h-60 overflow-y-auto pt-1 space-y-0.5">
-                  {categories.map((c) => (
+                  <div className="w-64 p-2 divide-y divide-border/60">
                     <button
-                      key={c.id}
                       type="button"
                       onClick={() => {
-                        setSelectedCategory(c);
+                        setSelectedCategory(null);
                         setSelectedProduct(null);
                         setCatOpen(false);
+                        setHoveredCat(null);
                       }}
-                      className="w-full text-left px-3 py-2 text-xs text-text hover:bg-surface-muted rounded-md flex items-center justify-between"
+                      className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
                     >
-                      <span className="truncate">{locale === "uz" ? c.nameUz : c.nameRu}</span>
-                      <span className="text-[10px] text-text-muted">({c.products.length})</span>
+                      {locale === "uz" ? "Barcha kategoriyalar" : "Все категории"}
                     </button>
-                  ))}
+                    <div className="max-h-72 overflow-y-auto pt-1 space-y-0.5">
+                      {categories.map((c) => (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onMouseEnter={() => setHoveredCat(c)}
+                          onClick={() => setHoveredCat(c)}
+                          className={`w-full text-left px-3 py-2 text-xs rounded-md flex items-center justify-between transition-colors ${
+                            hoveredCat?.id === c.id ? "bg-primary-soft text-primary" : "text-text hover:bg-surface-muted"
+                          }`}
+                        >
+                          <span className="truncate">{locale === "uz" ? c.nameUz : c.nameRu}</span>
+                          <div className="flex items-center gap-1 text-text-muted shrink-0">
+                            <span className="text-[10px]">({c.products.length})</span>
+                            <ChevronRight className="w-3.5 h-3.5" />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {hoveredCat && (
+                    <div className="w-64 p-2 border-l border-border divide-y divide-border/60">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCategory(hoveredCat);
+                          setSelectedProduct(null);
+                          setCatOpen(false);
+                          setHoveredCat(null);
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
+                      >
+                        {locale === "uz" ? "Barcha mahsulotlar" : "Все товары"}
+                      </button>
+                      <div className="max-h-72 overflow-y-auto pt-1 space-y-0.5">
+                        {hoveredCat.products.map((p) => (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCategory(hoveredCat);
+                              setSelectedProduct(p);
+                              setCatOpen(false);
+                              setHoveredCat(null);
+                            }}
+                            className="w-full text-left px-3 py-2 text-xs text-text hover:bg-surface-muted rounded-md truncate"
+                          >
+                            {locale === "uz" ? p.nameUz : p.nameRu}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              </>
             )}
           </div>
 
@@ -909,36 +954,81 @@ export const ListingFilter: React.FC<FilterProps> = ({ onApply, initialFilters =
             </button>
 
             {regOpen && (
-              <div className="absolute left-0 mt-2 w-64 bg-surface border border-border rounded-card shadow-xl z-50 p-2 divide-y divide-border/60">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedRegion(null);
-                    setSelectedDistrict(null);
-                    setRegOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => { setRegOpen(false); setHoveredReg(null); }} />
+                <div
+                  className="absolute left-0 mt-2 bg-surface border border-border rounded-card shadow-xl z-50 flex"
+                  onMouseLeave={() => setHoveredReg(null)}
                 >
-                  {locale === "uz" ? "Butun Oʻzbekiston" : "Весь Узбекистан"}
-                </button>
-                <div className="max-h-60 overflow-y-auto pt-1 space-y-0.5">
-                  {regions.map((r) => (
+                  <div className="w-64 p-2 divide-y divide-border/60">
                     <button
-                      key={r.id}
                       type="button"
                       onClick={() => {
-                        setSelectedRegion(r);
+                        setSelectedRegion(null);
                         setSelectedDistrict(null);
                         setRegOpen(false);
+                        setHoveredReg(null);
                       }}
-                      className="w-full text-left px-3 py-2 text-xs text-text hover:bg-surface-muted rounded-md flex items-center justify-between"
+                      className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
                     >
-                      <span className="truncate">{locale === "uz" ? r.nameUz : r.nameRu}</span>
-                      <span className="text-[10px] text-text-muted">({r.districts.length})</span>
+                      {locale === "uz" ? "Butun Oʻzbekiston" : "Весь Узбекистан"}
                     </button>
-                  ))}
+                    <div className="max-h-72 overflow-y-auto pt-1 space-y-0.5">
+                      {regions.map((r) => (
+                        <button
+                          key={r.id}
+                          type="button"
+                          onMouseEnter={() => setHoveredReg(r)}
+                          onClick={() => setHoveredReg(r)}
+                          className={`w-full text-left px-3 py-2 text-xs rounded-md flex items-center justify-between transition-colors ${
+                            hoveredReg?.id === r.id ? "bg-primary-soft text-primary" : "text-text hover:bg-surface-muted"
+                          }`}
+                        >
+                          <span className="truncate">{locale === "uz" ? r.nameUz : r.nameRu}</span>
+                          <div className="flex items-center gap-1 text-text-muted shrink-0">
+                            <span className="text-[10px]">({r.districts.length})</span>
+                            <ChevronRight className="w-3.5 h-3.5" />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {hoveredReg && (
+                    <div className="w-64 p-2 border-l border-border divide-y divide-border/60">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedRegion(hoveredReg);
+                          setSelectedDistrict(null);
+                          setRegOpen(false);
+                          setHoveredReg(null);
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs font-semibold text-primary hover:bg-surface-muted rounded-md"
+                      >
+                        {locale === "uz" ? "Butun viloyat boʻyicha" : "По всей области"}
+                      </button>
+                      <div className="max-h-72 overflow-y-auto pt-1 space-y-0.5">
+                        {hoveredReg.districts.map((d) => (
+                          <button
+                            key={d.id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedRegion(hoveredReg);
+                              setSelectedDistrict(d);
+                              setRegOpen(false);
+                              setHoveredReg(null);
+                            }}
+                            className="w-full text-left px-3 py-2 text-xs text-text hover:bg-surface-muted rounded-md truncate"
+                          >
+                            {locale === "uz" ? d.nameUz : d.nameRu}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              </>
             )}
           </div>
 

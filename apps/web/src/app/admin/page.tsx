@@ -56,6 +56,7 @@ import {
   Legend
 } from "recharts";
 import { toast } from "sonner";
+import { apiFetch } from "../../lib/api";
 import { ConfirmDialog, FormDialog } from "../../components/dialogs";
 import { formatCurrency } from "../../lib/localization";
 import { AdminReportsSection } from "./components/AdminReportsSection";
@@ -81,10 +82,24 @@ export default function AdminDashboardPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [period, setPeriod] = useState<"today" | "7d" | "30d" | "month" | "year">("30d");
+  const [allRegions, setAllRegions] = useState<any[]>([]);
+  const [allCategories, setAllCategories] = useState<any[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<string>("all");
+  const [selectedDistrict, setSelectedDistrict] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [mapMetric, setMapMetric] = useState<"listings" | "contracts" | "volume">("volume");
   const [dynMetric, setDynMetric] = useState<"contracts" | "orders" | "listings" | "sales">("contracts");
+
+  useEffect(() => {
+    Promise.all([apiFetch("/regions"), apiFetch("/categories")])
+      .then(([regs, cats]) => {
+        setAllRegions(regs || []);
+        setAllCategories(cats || []);
+      })
+      .catch(() => {});
+  }, []);
+
+  const activeRegionObj = allRegions.find((r: any) => r.id === selectedRegion) || null;
 
   // User detail drawer
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
@@ -705,24 +720,49 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* Region 2-level filter */}
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary block mb-1.5">
-                  {locale === "uz" ? "Hudud / Viloyat" : "Регион"}
-                </label>
-                <select
-                  value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value)}
-                  className="w-full h-10 px-3 bg-surface-muted border border-border rounded-btn text-xs font-medium focus:outline-none text-text"
-                >
-                  <option value="all">
-                    {locale === "uz" ? "Butun Oʻzbekiston (14 hudud)" : "Весь Узбекистан (14 регионов)"}
-                  </option>
-                  <option value="toshkent_sh">Toshkent shahri</option>
-                  <option value="samarqand">Samarqand viloyati</option>
-                  <option value="fargona">Fargʻona viloyati</option>
-                  <option value="andijon">Andijon viloyati</option>
-                  <option value="buxoro">Buxoro viloyati</option>
-                </select>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary block mb-1.5">
+                    {locale === "uz" ? "Hudud / Viloyat" : "Регион"}
+                  </label>
+                  <select
+                    value={selectedRegion}
+                    onChange={(e) => {
+                      setSelectedRegion(e.target.value);
+                      setSelectedDistrict("all");
+                    }}
+                    className="w-full h-10 px-3 bg-surface-muted border border-border rounded-btn text-xs font-medium focus:outline-none text-text"
+                  >
+                    <option value="all">
+                      {locale === "uz" ? `Butun Oʻzbekiston (${allRegions.length || 14} hudud)` : `Весь Узбекистан (${allRegions.length || 14} регионов)`}
+                    </option>
+                    {allRegions.map((r: any) => (
+                      <option key={r.id} value={r.id}>
+                        {locale === "uz" ? r.nameUz : r.nameRu}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary block mb-1.5">
+                    {locale === "uz" ? "Tuman" : "Район"}
+                  </label>
+                  <select
+                    value={selectedDistrict}
+                    onChange={(e) => setSelectedDistrict(e.target.value)}
+                    disabled={!activeRegionObj}
+                    className="w-full h-10 px-3 bg-surface-muted border border-border rounded-btn text-xs font-medium focus:outline-none text-text disabled:opacity-50"
+                  >
+                    <option value="all">
+                      {locale === "uz" ? "Barcha tumanlar" : "Все районы"}
+                    </option>
+                    {(activeRegionObj?.districts || []).map((d: any) => (
+                      <option key={d.id} value={d.id}>
+                        {locale === "uz" ? d.nameUz : d.nameRu}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Category filter */}
@@ -736,12 +776,13 @@ export default function AdminDashboardPage() {
                   className="w-full h-10 px-3 bg-surface-muted border border-border rounded-btn text-xs font-medium focus:outline-none text-text"
                 >
                   <option value="all">
-                    {locale === "uz" ? "Barcha kategoriyalar (14)" : "Все категории (14)"}
+                    {locale === "uz" ? `Barcha kategoriyalar (${allCategories.length || 14})` : `Все категории (${allCategories.length || 14})`}
                   </option>
-                  <option value="sabzavotlar">Sabzavotlar / Овощи</option>
-                  <option value="mevalar">Mevalar / Фрукты</option>
-                  <option value="qurilish">Qurilish materiallari / Стройматериалы</option>
-                  <option value="don">Don va dukkaklilar / Зерновые</option>
+                  {allCategories.map((c: any) => (
+                    <option key={c.id} value={c.id}>
+                      {locale === "uz" ? c.nameUz : c.nameRu}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -765,6 +806,7 @@ export default function AdminDashboardPage() {
                   onClick={() => {
                     setPeriod("30d");
                     setSelectedRegion("all");
+                    setSelectedDistrict("all");
                     setSelectedCategory("all");
                     toast.info(locale === "uz" ? "Filtrlar tozalandi" : "Фильтры сброшены");
                   }}
